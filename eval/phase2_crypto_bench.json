@@ -1,0 +1,12 @@
+{
+  "key_size_bits": 1024,
+  "vector_dimension": 384,
+  "iterations": 50,
+  "setup_latency_ms": 3401.1970999999903,
+  "mean_keygen_latency_ms": 0.05716000072425231,
+  "mean_encrypt_latency_ms": 3332.5256260007154,
+  "mean_decrypt_latency_ms": 48.53337799984729,
+  "ciphertext_size_bytes": 100101,
+  "prf_token_size_bytes": 32,
+  "type_tag_ct_size_bytes": 33
+}

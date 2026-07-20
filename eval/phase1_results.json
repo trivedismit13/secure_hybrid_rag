@@ -1,0 +1,623 @@
+{
+  "phase": 1,
+  "timestamp": "2026-07-20T09:41:29Z",
+  "metrics": {
+    "accuracy": 0.25,
+    "precision": 1.0,
+    "recall": 0.05714285714285714,
+    "f1": 0.1081081081081081,
+    "total_questions": 60,
+    "correct": 15,
+    "true_positives": 2,
+    "false_positives": 0,
+    "false_negatives": 33,
+    "true_negatives": 17,
+    "mean_latency_ms": 0.9080500007257797,
+    "median_latency_ms": 0.8227500002249144,
+    "p95_latency_ms": 1.3134799912222659,
+    "mean_confidence": 0.6383333333333334,
+    "insufficient_evidence_count": 8
+  },
+  "per_question": [
+    {
+      "question_id": "Q-001",
+      "question": "Is the maximum operating pressure of the pump casing (500 PSI) greater than the mechanical seal pressure rating (400 PSI)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.85,
+      "latency_ms": 3.8185000012163073,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-002",
+      "question": "Is the impeller diameter (12 inches) larger than the shaft diameter (3.5 inches)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.7983999967109412,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-003",
+      "question": "Is the hydrostatic test pressure (750 PSI) exactly 2\u00d7 the design pressure (500 PSI)?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.7569000008516014,
+      "triples_used": 5
+    },
+    {
+      "question_id": "Q-004",
+      "question": "Is the motor efficiency (95.4%) above the minimum threshold of 93%?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.85,
+      "latency_ms": 0.8373999880859628,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-005",
+      "question": "Is the vibration alert threshold (7.1 mm/s) higher than the alarm threshold (11.2 mm/s)?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.6667999987257645,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-006",
+      "question": "Is the L10 bearing life (40000 hours) longer than the mechanical seal replacement interval (8000 hours)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.3078999909339473,
+      "triples_used": 9
+    },
+    {
+      "question_id": "Q-007",
+      "question": "Is the maximum flow rate (2500 GPM) more than 4\u00d7 the minimum continuous flow (500 GPM)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.85,
+      "latency_ms": 0.9409000049345195,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-008",
+      "question": "Is the shaft critical speed (4800 RPM) above the maximum allowable pump speed (3600 RPM)?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.8786000107647851,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-009",
+      "question": "Is the oil filter differential pressure alarm (15 PSI) higher than the seal flush filter alarm (15 PSI)?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.7365000055870041,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-010",
+      "question": "Is the motor power rating (250 HP) sufficient for a pump requiring approximately 200 HP at BEP?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.6898999999975786,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-011",
+      "question": "Does REQ-001 (500 PSI casing pressure) require the Volute Casing to satisfy it?",
+      "predicted": null,
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.9465000039199367,
+      "triples_used": 11
+    },
+    {
+      "question_id": "Q-012",
+      "question": "Is Lock-Out/Tag-Out (LOTO) required before maintenance activities per REQ-003?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.6176000024424866,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-013",
+      "question": "Does the coupling guard need to be verified before pump start-up per REQ-007?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.8233999978983775,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-014",
+      "question": "Is the minimum motor insulation resistance requirement 50 M\u03a9 per REQ-012?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 1.4194999967003241,
+      "triples_used": 8
+    },
+    {
+      "question_id": "Q-015",
+      "question": "Does REQ-006 specify a vibration limit of 11.2 mm/s RMS for normal operation?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": false,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.6156999879749492,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-016",
+      "question": "Is a confined space entry permit required for volute casing internal inspection per REQ-019?",
+      "predicted": null,
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 1.06160000723321,
+      "triples_used": 9
+    },
+    {
+      "question_id": "Q-017",
+      "question": "Does REQ-011 require seal barrier fluid pressure to be maintained 25 PSI above process pressure?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.85,
+      "latency_ms": 0.790300007793121,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-018",
+      "question": "Is PPE required when within 3 meters of an operating pump per REQ-009?",
+      "predicted": null,
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.8251000108430162,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-019",
+      "question": "Does REQ-004 require the emergency shutdown to stop the pump within 10 seconds?",
+      "predicted": null,
+      "gold": false,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.7132000027922913,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-020",
+      "question": "Is the alignment tolerance 0.005 inches parallel per REQ-013?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.9044000034919009,
+      "triples_used": 10
+    },
+    {
+      "question_id": "Q-021",
+      "question": "Is the impeller made of 316 Stainless Steel?",
+      "predicted": "TRUE",
+      "gold": true,
+      "correct": true,
+      "confidence": 0.85,
+      "latency_ms": 0.8043999987421557,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-022",
+      "question": "Does the flow meter have an accuracy of \u00b11.0% of reading?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": false,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.6261000089580193,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-023",
+      "question": "Is the shaft runout tolerance 0.002 inches TIR?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.7787000067764893,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-024",
+      "question": "Does the temperature probe use a thermocouple (Type K) as the sensing element?",
+      "predicted": null,
+      "gold": false,
+      "correct": false,
+      "confidence": 0.3,
+      "latency_ms": 0.6793999928049743,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-025",
+      "question": "Is the pressure transmitter output signal 4-20 mA HART?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.6675000040559098,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-026",
+      "question": "Does the VFD have a harmonic distortion limit of 10% THD?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": false,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.8871000027284026,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-027",
+      "question": "Is the wear ring initial clearance 0.012 inches diametral?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.9602000063750893,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-028",
+      "question": "Does the electric motor operate on single-phase power?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": false,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.6686999986413866,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-029",
+      "question": "Is the BEP efficiency of the pump system 87%?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.110299999709241,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-030",
+      "question": "Is the baseplate flatness tolerance 0.005 inches/foot?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.8013999904505908,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-031",
+      "question": "Does the Impeller Assembly (a sub-component of Pump Assembly) need to satisfy the 500 PSI casing requirement through its parent assembly?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.0737999982666224,
+      "triples_used": 6
+    },
+    {
+      "question_id": "Q-032",
+      "question": "Can you trace from the Vibration Sensor back to the bearing temperature requirement (REQ-005) through the vibration monitoring action?",
+      "predicted": null,
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 1.0199999960605055,
+      "triples_used": 14
+    },
+    {
+      "question_id": "Q-033",
+      "question": "Is the mechanical seal replacement action (ACT-001) traceable to REQ-011 (seal barrier fluid)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.8131000067805871,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-034",
+      "question": "Does the hydrostatic pressure test action (ACT-009) allocate to the Volute Casing?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.9704000112833455,
+      "triples_used": 11
+    },
+    {
+      "question_id": "Q-035",
+      "question": "Is the shaft alignment action (ACT-004) allocated to the Impeller Assembly?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.9850000060396269,
+      "triples_used": 10
+    },
+    {
+      "question_id": "Q-036",
+      "question": "Does the Impeller Assembly have a parameter for maximum tip speed of 150 ft/s?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.7403999916277826,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-037",
+      "question": "Is the oil change action (ACT-005) traceable to the oil mist lubrication requirement (REQ-016)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.6869000062579289,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-038",
+      "question": "Does the VFD filter replacement action trace back to the VFD harmonics requirement (REQ-017)?",
+      "predicted": "TRUE",
+      "gold": true,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.7439999899361283,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-039",
+      "question": "Is the bearing inspection action (ACT-002) allocated to both the Bearing Housing and Vibration Sensor?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.6971999973757192,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-040",
+      "question": "Does the corrosion survey action (ACT-020) trace to REQ-001 (500 PSI pressure)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.6778999959351495,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-041",
+      "question": "Is the motor bearing replacement action (ACT-013) allocated to the Bearing Housing?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 1.1448000004747882,
+      "triples_used": 10
+    },
+    {
+      "question_id": "Q-042",
+      "question": "Does the impeller dynamic balancing action (ACT-018) trace to both REQ-006 (vibration) and REQ-015 (minimum flow)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.8189999934984371,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-043",
+      "question": "Is the Seal Flush Filter part of the Seal Support System assembly?",
+      "predicted": null,
+      "gold": true,
+      "correct": false,
+      "confidence": 0.3,
+      "latency_ms": 1.0691000061342493,
+      "triples_used": 6
+    },
+    {
+      "question_id": "Q-044",
+      "question": "Is the Vibration Sensor part of the Drive Train Assembly?",
+      "predicted": null,
+      "gold": false,
+      "correct": false,
+      "confidence": 0.3,
+      "latency_ms": 0.7172999903559685,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-045",
+      "question": "Does the Pump Assembly have a parameter for NPSH Required of 12 feet?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.0347000061301515,
+      "triples_used": 9
+    },
+    {
+      "question_id": "Q-046",
+      "question": "Is the flexible coupling torque rating (5500 ft-lbs) a parameter of the Drive Train Assembly?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.8249000093201175,
+      "triples_used": 2
+    },
+    {
+      "question_id": "Q-047",
+      "question": "Can the requirement for emergency shutdown within 5 seconds (REQ-004) be satisfied by the VFD and Electric Motor?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.0424999927636236,
+      "triples_used": 5
+    },
+    {
+      "question_id": "Q-048",
+      "question": "Does the pump performance test action (ACT-019) allocate to both the Impeller Assembly and Volute Casing?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.8705000072950497,
+      "triples_used": 6
+    },
+    {
+      "question_id": "Q-049",
+      "question": "Is the suction strainer cleaning action (ACT-011) traceable to the requirement about verifying suction valves (REQ-010)?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.6120000034570694,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-050",
+      "question": "Does the thermal imaging survey action (ACT-016) allocate to the Volute Casing?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.8221000025514513,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-051",
+      "question": "Is the Sight Glass a sub-component of the Lubrication System?",
+      "predicted": null,
+      "gold": true,
+      "correct": false,
+      "confidence": 0.3,
+      "latency_ms": 0.9071999957086518,
+      "triples_used": 4
+    },
+    {
+      "question_id": "Q-052",
+      "question": "Does the discharge check valve test action trace to the same requirement as the suction strainer cleaning?",
+      "predicted": "INSUFFICIENT_EVIDENCE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.5,
+      "latency_ms": 0.625400003627874,
+      "triples_used": 0
+    },
+    {
+      "question_id": "Q-053",
+      "question": "Is the rated head of the pump system 450 feet?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.9029999928316101,
+      "triples_used": 4
+    },
+    {
+      "question_id": "Q-054",
+      "question": "Does the noise level parameter (85 dBA at 1m) exceed the OSHA 8-hour permissible exposure limit of 90 dBA?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.85,
+      "latency_ms": 0.6971999973757192,
+      "triples_used": 3
+    },
+    {
+      "question_id": "Q-055",
+      "question": "Is the maximum allowable wear ring clearance (0.024 inches) exactly double the new clearance (0.012 inches)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.7151000027079135,
+      "triples_used": 4
+    },
+    {
+      "question_id": "Q-056",
+      "question": "Does the foundation bolt torque check action (ACT-017) trace to the grounding requirement (REQ-018)?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 0.9027999913087115,
+      "triples_used": 7
+    },
+    {
+      "question_id": "Q-057",
+      "question": "Is the Coupling Spacer a sub-component of the Pump Assembly?",
+      "predicted": null,
+      "gold": false,
+      "correct": false,
+      "confidence": 0.3,
+      "latency_ms": 0.9245000110240653,
+      "triples_used": 11
+    },
+    {
+      "question_id": "Q-058",
+      "question": "Does the design life parameter (20 years) belong to the Pump System?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.4878000074531883,
+      "triples_used": 11
+    },
+    {
+      "question_id": "Q-059",
+      "question": "Is the bearing housing material Cast Iron ASTM A48 Class 30?",
+      "predicted": "FALSE",
+      "gold": false,
+      "correct": true,
+      "confidence": 0.7,
+      "latency_ms": 0.7216999947559088,
+      "triples_used": 1
+    },
+    {
+      "question_id": "Q-060",
+      "question": "Is the motor full load current 302 A?",
+      "predicted": "FALSE",
+      "gold": true,
+      "correct": false,
+      "confidence": 0.7,
+      "latency_ms": 1.099800007068552,
+      "triples_used": 10
+    }
+  ]
+}

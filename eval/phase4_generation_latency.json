@@ -1,0 +1,8 @@
+{
+  "model": "HuggingFaceTB/SmolLM-135M",
+  "max_new_tokens": 20,
+  "runs": 5,
+  "baseline_latency_s": 0.5136954200017498,
+  "hooked_latency_s": 0.512022139999317,
+  "overhead_percent": -0.32573387600518827
+}
