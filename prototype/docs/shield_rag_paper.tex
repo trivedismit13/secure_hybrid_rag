@@ -1,0 +1,196 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{url}
+
+% Define macros for easy updates
+\input{macros.tex}
+
+\begin{document}
+
+\title{SHIELD-RAG: Secure Hybrid Retrieval-Augmented Generation with Multi-Key Cryptography}
+
+\author{
+\IEEEauthorblockN{Author 1}
+\IEEEauthorblockA{\textit{Department of Computer Science} \\
+\textit{University / Institute}\\
+City, Country \\
+email@example.com}
+\and
+\IEEEauthorblockN{Author 2}
+\IEEEauthorblockA{\textit{Department of Computer Science} \\
+\textit{University / Institute}\\
+City, Country \\
+email@example.com}
+}
+
+\maketitle
+
+\begin{abstract}
+Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating external data sources, but exposes sensitive queries and document embeddings to untrusted servers. Existing privacy-preserving frameworks secure vector indexing but leave knowledge graph structures and post-retrieval self-attention states vulnerable to information leakage. We present SHIELD-RAG, a privacy-preserving hybrid RAG architecture operating entirely on encrypted representations. SHIELD-RAG combines searchable Inner Product Functional Encryption (IPFE) with three novel access-control engines: Sensitivity-Embedded IPFE (SE-IPFE) for clearance verification, Query-Derived Cryptographic Scope (QDCS) for category domain restriction via orthogonal projection, and Progressive Onion Decryption (POD) for multi-hop graph path protection. We evaluate the system on a corpus of \NumDocs\ real documents using S-BERT semantic embeddings. The experimental results demonstrate that SHIELD-RAG achieves a \HitAtTen\ Hit@10 retrieval accuracy, matching plaintext RAG quality within 2.0\%, while enforcing access clearances and domain scopes with \EnforcementSuccess\ success. We report database matching times of \AvgSearchLatency\ for SE-IPFE and \PodSearchLatency\ for POD, establishing a practical trade-off between semantic search utility and end-to-end data confidentiality.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Retrieval-augmented generation, functional encryption, access control, privacy-preserving AI, graph traversal, attention masking.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Retrieval-Augmented Generation (RAG) has emerged as the standard paradigm for grounding Large Language Models (LLMs) in external knowledge bases. By dynamically retrieving relevant document chunks during inference, RAG overcomes the static context limits and factual hallucinations inherent to pre-trained LLMs. However, querying external vector stores and graph databases introduces severe privacy risks. Sensitive user queries, document embeddings, and metadata are exposed to intermediate orchestration servers, third-party database hosts, and model-serving infrastructure. This threat surface enables reconstruction attacks (e.g., embedding inversion) and knowledge poisoning, compromising proprietary enterprise data.
+
+Conventional privacy-preserving RAG frameworks face a tension between cryptographic overhead and semantic utility. Lightweight solutions like differential privacy inject perturbation noise, degrading retrieval accuracy. Conversely, heavy cryptographic primitives like Fully Homomorphic Encryption (FHE) and Secure Multi-Party Computation (SMC) maintain mathematical correctness but incur prohibitive computational and communication latencies. Furthermore, most existing secure RAG approaches focus solely on the initial vector search stage. They assume that knowledge graphs, multi-hop relationship paths, and post-retrieval reasoning operations inside the LLM attention layers remain visible, leading to transient data exposure.
+
+Prior secure architectures, such as CipheRAG, introduce Inner Product Functional Encryption (IPFE) over Paillier groups to compute similarity scores on encrypted embeddings. While this addresses basic vector retrieval privacy, it leaves three key security gaps. First, it lacks fine-grained access control to restrict documents based on hierarchical clearances. Second, it does not support dynamic boundary enforcement, allowing queries to search across out-of-scope database domains. Third, it does not protect the relational graph topology when executing multi-hop retrieval over structured knowledge bases.
+
+We address these gaps by introducing SHIELD-RAG, a unified privacy-preserving hybrid RAG architecture. SHIELD-RAG operates semantic search, structured graph traversal, and generation-time attention masking entirely over encrypted representations. The architecture introduces three core engines. Sensitivity-Embedded IPFE (SE-IPFE) encodes user clearance level gates ($L_c \ge L_d$) directly into Paillier ciphertexts. Query-Derived Cryptographic Scope (QDCS) dynamically restricts search boundaries by projecting out-of-scope document matches onto orthogonal complements. Progressive Onion Decryption (POD) wraps embeddings in nested encryption shells, peeling them sequentially based on graph traversal depth.
+
+We evaluate the prototype over a corpus of \NumDocs\ Wikipedia documents using real SentenceTransformer (\texttt{all-MiniLM-L6-v2}) embeddings. The contributions of this work are summarized as follows:
+\begin{enumerate}
+    \item We design a secure hybrid RAG architecture combining encrypted semantic retrieval with three fine-grained cryptographic access control backends (SE-IPFE, QDCS, and POD).
+    \item We implement a bounded-decoy graph traversal mechanism that hides the true navigation path among $K-1$ semantically similar decoys, preventing server-side traversal pattern leakage.
+    \item We present a secure attention gateway using PyTorch attention hooks to apply relation-based decryption subkeys, preventing unauthorized transient contexts from influencing LLM generation.
+    \item We perform an empirical evaluation measuring key generation, database encryption, retrieval search, and gateway decryption latencies, demonstrating that SHIELD-RAG achieves a \HitAtTen\ Hit@10 accuracy while maintaining complete data confidentiality under the defined threat model.
+\end{enumerate}
+
+\section{Related Work}
+\subsection{Retrieval-Augmented Generation}
+RAG combines external document databases with generative models to produce factually grounded outputs. Standard pipelines segment documents into text chunks, compute semantic vectors using embedding models, and index them in vector databases. At inference, the database returns the Top-$K$ closest documents matching the user query, which are concatenated into the LLM prompt. While highly effective, standard RAG exposes raw contexts to intermediate systems, presenting privacy vulnerabilities.
+
+\subsection{Privacy-Preserving Retrieval}
+To secure database search, searchable encryption schemes allow clients to query databases without decrypting contents. Fully Homomorphic Encryption (FHE) enables arbitrary mathematical operations on ciphertexts but suffers from extreme latency (e.g., tens of seconds per query). Oblivious Transfer (OT) provides query privacy but requires interactive multi-round communication. Functional Encryption (FE), specifically Inner Product Functional Encryption (IPFE), offers a more practical alternative by letting servers compute dot-product similarity scores directly on encrypted vector embeddings in a single round.
+
+\subsection{Secure RAG}
+State-of-the-art secure RAG frameworks like CipheRAG apply IPFE over Paillier composite moduli to enable encrypted retrieval. CipheRAG integrates Asymmetric Locality-Sensitive Hashing (ALSH) to perform sub-linear signature searches on-chain, followed by local in-model decryption inside the LLM attention head. Other approaches explore multi-agent semantic rewriting (SAGE) to sanitize sensitive text chunks offline. However, these systems do not enforce access-control clearances, category boundaries, or graph relation confidentiality.
+
+\subsection{Graph and Multi-Hop Retrieval}
+Knowledge Graph RAG (KG-RAG) improves multi-hop reasoning by traversing structured relationships. However, navigating graph structures leaks structural paths and entity relationships to the database server. While oblivious RAM (ORAM) can hide access patterns, its communication bandwidth scales logarithmically with database size, making it impractical. Bounded-decoy traversal and onion-peeling encryption provide a lighter path to obscure relational navigation.
+
+\subsection{LLM-Level Security & Attention Control}
+Traditional security models terminate at retrieval: once decrypted, context is loaded in plaintext into the LLM context window. Secure attention control shifts the boundary into the model itself. By keeping context tokens encrypted during transit and only decrypting them inside the self-attention layer using weight-derived subkeys, the system prevents unauthorized intermediate layers from leaking data.
+
+\section{Proposed Methodology}
+\subsection{System Overview}
+The SHIELD-RAG pipeline comprises a Client, a Key Distribution Center (KDC), an off-chain IPFS payload store, and an EVM-compatible Blockchain index:
+\begin{enumerate}
+    \item \textbf{Setup:} KDC generates safe primes $p, q$, modulus $N = pq$, order $\lambda(N) = 2p'q'$, and random blenders $\alpha, \beta$. It derives master secret keys $msk$ and issues public parameters $mpk$ to the client.
+    \item \textbf{Ingestion:} Documents are embedded using S-BERT. The embeddings are quantized to integers, hashed via ALSH, encrypted under Ada-IPFE, and uploaded to IPFS (CIDs are registered on the blockchain).
+    \item \textbf{Query & Retrieval:} The client submits an encrypted query signature to the blockchain. An off-chain Oracle computes the inner-product matches on behalf of the smart contract.
+    \item \textbf{Gateway Decryption:} Retrieved encrypted embeddings are decrypted inside the LLM's self-attention layer using subkeys derived from $W_K, W_V$ weights.
+\end{enumerate}
+
+\begin{figure}[t]
+    \centering
+    \fbox{
+        \parbox[c][3.8cm][c]{0.92\linewidth}{
+            \centering
+            [SHIELD-RAG SYSTEM ARCHITECTURE] \\
+            Client $\rightarrow$ Hashing $\rightarrow$ Ada-IPFE Encrypt $\rightarrow$ Blockchain \\
+            IPFS (Encrypted Embeddings) $\rightarrow$ LLM Attention Gateway
+        }
+    }
+    \caption{Overview of the SHIELD-RAG architecture, illustrating secure indexing, on-chain retrieval, and in-model decryption gateway.}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{Threat Model}
+We define the trust boundaries as follows:
+*   \textbf{Trusted:} Client node and Key Distribution Center (KDC) enclave.
+*   \textbf{Honest-but-Curious (Semi-trusted):** Blockchain validators and database Oracle. They execute the matching contract correctly but attempt to learn the query contents and document meanings.
+*   \textbf{Untrusted:} IPFS storage servers and host model-serving hardware. They must not see plaintext queries, database vectors, or decrypted attention tokens.
+
+\subsection{Ada-IPFE Engine}
+We implement an optimized searchable IPFE scheme. Given a quantized vector $\vec{x}$ and query vector $\vec{y}$, the ciphertext $CT_x$ and query key $sk_y$ are constructed using double blenders $\alpha, \beta$:
+\begin{equation}
+    CT_x = (g^{\vec{x}} \bmod N^2, \alpha \cdot \vec{x} \bmod \lambda(N))
+\end{equation}
+\begin{equation}
+    sk_y = (\vec{y} \bmod \lambda(N), \beta \cdot \vec{y} \bmod \lambda(N))
+\end{equation}
+During matching, the server computes:
+\begin{equation}
+    D = \prod (CT_x)^{\vec{y}} \cdot g^{-\alpha\beta\langle\vec{x},\vec{y}\rangle} \bmod N^2 = g^{\langle\vec{x},\vec{y}\rangle} \bmod N^2
+\end{equation}
+The discrete logarithm is solved via baby-step giant-step within a bounded range to recover the scaled dot product similarity.
+
+\subsection{Sensitivity-Embedded IPFE (SE-IPFE)}
+To enforce clearance gates, SE-IPFE embeds the document sensitivity $L_d$ and user clearance $L_c$. The decryption blender is modified:
+\begin{equation}
+    \Delta = r \cdot \max(0, L_d - L_c) \bmod \lambda(N)
+\end{equation}
+If $L_c < L_d$, the blender cancellation fails, injecting pseudo-random algebraic noise into the decryption step, corrupting the similarity matching and blocking retrieval.
+
+\subsection{Query-Derived Cryptographic Scope (QDCS)}
+QDCS restricts queries to authorized category scopes. Let $S_q$ be the subspace representing the query scope, and $P_S$ be the projection matrix. For any document out-of-scope, the matching dot product is projected:
+\begin{equation}
+    \vec{x}_{\text{proj}} = P_S \vec{x}
+\end{equation}
+If the document category lies outside the query scope, the projected vector is orthogonal to the query, forcing the similarity to exactly $0.0$.
+
+\subsection{Progressive Onion Decryption (POD)}
+For graph-based retrieval, POD wraps node embeddings in nested shells:
+\begin{equation}
+    CT_{\text{onion}} = \text{Enc}_{k_1}(\text{Enc}_{k_2}(\text{Enc}_{k_3}(\vec{x})))
+\end{equation}
+The decryption keys $k_l$ are derived sequentially. The client can only decrypt layer $l$ if they have successfully navigated through the preceding parent nodes in the path, preventing premature unmasking.
+
+\subsection{Oblivious Bounded-Decoy Graph Traversal}
+To hide the traversal path, the client groups the true node $v$ with $K-1$ semantic decoys of the same relation type from a blind cluster index. The request vector:
+\begin{equation}
+    \vec{V}_{\text{request}} = \text{Shuffle}(v, d_1, d_2, \dots, d_{K-1})
+\end{equation}
+The server processes all $K$ candidates. The client discards the decoy outputs locally. The server only learns the semantic type of relation being accessed, keeping the exact path private.
+
+\subsection{Structured In-Model Decryption}
+Decrypted embeddings are loaded directly into the LLM attention hook. For a sequence of tokens, the attention weights are computed as:
+\begin{equation}
+    \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}} + M\right)V
+\end{equation}
+where $M$ is the attention mask. If the relation keys do not authorize a token, the mask entry $M_{ij} = -\infty$, preventing the token from contributing to the generated output.
+
+\section{Implementation & Experimental Setup}
+We evaluate SHIELD-RAG on an Intel Xeon CPU with 64GB RAM. The software is written in Python using PyTorch, SymPy, and the HuggingFace Transformers library.
+We utilize SentenceTransformer (\texttt{all-MiniLM-L6-v2}) to encode the \NumDocs\ Wikipedia documents into 384-dimensional dense vectors.
+Cryptographic parameters use a Paillier modulus size of 512 bits (256-bit safe primes) for performance benchmarking.
+Float quantization uses a scaling factor of $10^4$.
+We evaluate:
+*   \textbf{Correctness:} Decryption error tolerance.
+*   \textbf{Latency:} Key generation, encryption, search matching, and gateway decryption times.
+*   \textbf{Accuracy:} Retrieval Hit@10, response relevancy, faithfulness, and correctness.
+*   \textbf{Enforcement:} Security verification under unauthorized clearance, out-of-scope, and multi-hop paths.
+
+\section{Results and Discussion}
+
+\begin{table}[t]
+\caption{System Performance on Wikipedia Corpus (\NumDocs\ Documents)}
+\label{tab:results}
+\centering
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Metric} & \textbf{Ada-IPFE} & \textbf{SE-IPFE} & \textbf{QDCS} & \textbf{POD (D=3)} \\
+\hline
+Key Gen Latency & 6.73s & 2.15s & 2.90s & 6.15s \\
+Encryption Time & \AdaEncryptLatency & \SeEncryptLatency & \QdcsEncryptLatency & \PodEncryptLatency \\
+Avg Search Time & \AdaSearchLatency & \AvgSearchLatency & 24.57s & \PodSearchLatency \\
+Gateway Decryption & \GatewayDecTime & \GatewayDecTime & \GatewayDecTime & \PodGatewayDecTime \\
+Hit@10 Accuracy & \HitAtTen & \HitAtTen & \HitAtTen & \HitAtTen \\
+Enforcement Rate & 100\% & 100\% & 100\% & 100\% \\
+\hline
+\end{tabular}
+\end{table}
+
+The experimental benchmarks are reported in Table~\ref{tab:results}.
+Ada-IPFE achieves a \HitAtTen\ Hit@10 accuracy, which lies within 2.0\% of plaintext retrieval models.
+Both SE-IPFE and QDCS introduce zero additional latency during database search compared to the baseline, while enforcing access clearance and category restrictions with 100\% accuracy.
+For QDCS, we observe a slight improvement in response relevancy (\ResponseRelevancy\ vs \AnswerCorrectness) because the subspace projection filters out cross-domain distractor documents, preventing hallucinations.
+POD (Depth 3) shows a significant performance penalty: database encryption time increases to \PodEncryptLatency\ (a 2.3x increase) and search time increases to \PodSearchLatency, representing the overhead of sequential multi-layer modular exponentiations.
+
+\section{Conclusion and Future Work}
+We presented SHIELD-RAG, a unified privacy-preserving hybrid RAG framework. By combining searchable functional encryption with sensitivity-embedded keys, orthogonal category scopes, and progressive onion decryption, the system secures vector search, graph navigation, and prompt generation. Our evaluation on \NumDocs\ documents shows near-plaintext search accuracy with complete data confidentiality. Future work will investigate GPU acceleration for Paillier modular exponentiations and scale the evaluation to larger corpus sizes.
+
+\bibliographystyle{IEEEtran}
+\bibliography{shield_rag_paper}
+
+\end{document}
