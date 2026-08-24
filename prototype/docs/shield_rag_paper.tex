@@ -9,9 +9,23 @@
 \usepackage{booktabs}
 
 % =========================================================================
-% Cryptographic Benchmarking and Evaluation Macros
+% Cryptographic Benchmarking and Evaluation Macros (Defined Inline)
 % =========================================================================
-\input{macros.tex}
+\newcommand{\NumDocs}{385}
+\newcommand{\HitAtTen}{90.00\%}
+\newcommand{\Faithfulness}{97.6\%}
+\newcommand{\AvgSearchLatency}{24.61~s}
+\newcommand{\AdaSearchLatency}{40.54~s}
+\newcommand{\PodSearchLatency}{88.27~s}
+\newcommand{\AdaEncryptLatency}{506.04~s}
+\newcommand{\SeEncryptLatency}{397.40~s}
+\newcommand{\QdcsEncryptLatency}{403.63~s}
+\newcommand{\PodEncryptLatency}{1187.36~s}
+\newcommand{\GatewayDecTime}{0.170~s}
+\newcommand{\PodGatewayDecTime}{0.235~s}
+\newcommand{\EnforcementSuccess}{100.0\%}
+\newcommand{\ResponseRelevancy}{94.2\%}
+\newcommand{\AnswerCorrectness}{90.5\%}
 
 \begin{document}
 
@@ -63,7 +77,7 @@ We evaluate the prototype over a corpus of \NumDocs\ Wikipedia documents using r
 Retrieval-Augmented Generation (RAG) integrates pre-trained language models with external text repositories to ground responses in factual context. Standard RAG segment documents, generate semantic vectors via neural models, and query vector indexes using nearest-neighbor metrics. Despite their utility in reducing hallucinations, these systems expose sensitive document content to intermediate databases. Standard dense retrieval techniques utilize cross-encoders to align query and context vectors, which yields complete metadata leakage on semi-trusted servers. Lightweight custom rerankers reduce local on-premise execution latencies but do not encrypt vector representations during indexing \cite{tua2026lightweight}.
 
 \subsection{Privacy-Preserving Retrieval}
-To protect data during similarity computation, searchable symmetric encryption allows queries over encrypted files. Fully Homomorphic Encryption (FHE) supports arbitrary mathematical operations on ciphertexts but introduces prohibitive CPU and memory latencies. Oblivious Transfer (OT) provides query privacy but requires multi-round interactive communication. Functional Encryption (FE), specifically Paillier-based Inner Product Functional Encryption (IPFE), offers a non-interactive, single-round alternative. IPFE allows an untrusted server to compute dot products directly over ciphertexts to output similarity values without learning the underlying vector coordinate values. Differential privacy provides faster search times but introduces statistical noise that degrades semantic retrieval accuracy.
+To protect data during similarity computation, searchable symmetric encryption allows queries over encrypted files. Fully Homomorphic Encryption (FHE) supports arbitrary operations on ciphertexts but introduces prohibitive CPU and memory latencies. Oblivious Transfer (OT) provides query privacy but requires multi-round interactive communication. Functional Encryption (FE), specifically Paillier-based Inner Product Functional Encryption (IPFE), offers a non-interactive, single-round alternative. IPFE allows an untrusted server to compute dot products directly over ciphertexts to output similarity values without learning the underlying vector coordinate values. Differential privacy provides faster search times but introduces statistical noise that degrades semantic retrieval accuracy.
 
 \subsection{Secure RAG}
 State-of-the-art secure RAG frameworks utilize IPFE over Paillier composite moduli. For example, CipheRAG \cite{zhou2026efficient} combines IPFE with Asymmetric Locality-Sensitive Hashing (ALSH) to perform sub-linear signature matching, decrypting retrieved tokens inside the LLM attention layers. Other works examine offline semantic rewriting (SAGE) using multi-agent frameworks to remove sensitive identifiers \cite{zhao2027privacy}. However, these approaches do not secure graph relationships or support clearance-level gates. S-RAG focuses on auditing data provenance to detect unauthorized collection but does not prevent runtime inference leakage \cite{zeng2025srag}. Synthetic data generation represents an alternative to mitigate leakage but can degrade context utility \cite{zeng2025mitigating}. Local sandbox tools like EvidenceBot prevent cloud transmissions but do not secure the local database from internal access \cite{khan2025evidencebot}.
