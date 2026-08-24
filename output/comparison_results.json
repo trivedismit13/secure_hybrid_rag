@@ -1,0 +1,30 @@
+{
+    "Ada-IPFE": {
+        "KeyGen": 6.725517749786377,
+        "Encrypt": 506.03581244945525,
+        "Match": 40.53692792892456,
+        "Gateway": 0.17051267623901367,
+        "SecurityEnforcement": 100.0
+    },
+    "SE-IPFE": {
+        "KeyGen": 2.1491730213165283,
+        "Encrypt": 397.4028536319733,
+        "SecurityEnforcement": 100.0,
+        "Match": 24.61138355731964,
+        "Gateway": 0.17051267623901367
+    },
+    "QDCS": {
+        "KeyGen": 2.900862693786621,
+        "Encrypt": 403.63360772132876,
+        "SecurityEnforcement": 100.0,
+        "Match": 24.56857656955719,
+        "Gateway": 0.17051267623901367
+    },
+    "POD (Depth 3)": {
+        "KeyGen": 6.154905557632446,
+        "Encrypt": 1187.3591626882553,
+        "SecurityEnforcement": 100.0,
+        "Match": 88.26501417160034,
+        "Gateway": 0.23537397384643555
+    }
+}
