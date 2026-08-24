@@ -1,0 +1,26 @@
+{
+  "k=1": {
+    "total_latency_ms": 15.615900003467686,
+    "total_hops": 10,
+    "avg_hop_latency_ms": 1.5615900003467686,
+    "total_buckets_fetched": 10
+  },
+  "k=3": {
+    "total_latency_ms": 15.461600007256493,
+    "total_hops": 10,
+    "avg_hop_latency_ms": 1.5461600007256493,
+    "total_buckets_fetched": 30
+  },
+  "k=5": {
+    "total_latency_ms": 14.97380000364501,
+    "total_hops": 10,
+    "avg_hop_latency_ms": 1.497380000364501,
+    "total_buckets_fetched": 50
+  },
+  "k=10": {
+    "total_latency_ms": 16.034300002502277,
+    "total_hops": 10,
+    "avg_hop_latency_ms": 1.6034300002502277,
+    "total_buckets_fetched": 100
+  }
+}

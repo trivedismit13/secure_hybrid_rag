@@ -1,0 +1,26 @@
+{
+  "k=2": {
+    "actual_k": 2,
+    "baseline_guess_prob": 0.013333333333333334,
+    "server_guess_prob": 0.5,
+    "distinguishing_advantage": 0.4866666666666667
+  },
+  "k=4": {
+    "actual_k": 4,
+    "baseline_guess_prob": 0.013333333333333334,
+    "server_guess_prob": 0.25,
+    "distinguishing_advantage": 0.23666666666666666
+  },
+  "k=8": {
+    "actual_k": 8,
+    "baseline_guess_prob": 0.013333333333333334,
+    "server_guess_prob": 0.125,
+    "distinguishing_advantage": 0.11166666666666666
+  },
+  "k=16": {
+    "actual_k": 16,
+    "baseline_guess_prob": 0.013333333333333334,
+    "server_guess_prob": 0.0625,
+    "distinguishing_advantage": 0.049166666666666664
+  }
+}
