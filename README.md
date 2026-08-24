@@ -21,31 +21,44 @@ SHIELD-RAG provides a unified framework addressing security vulnerabilities in s
 
 ```text
 secure_hybrid_rag/
-├── config.py                 # Precision parameters and composite RSA bit sizes
-├── crypto_engine.py          # Baseline Ada-IPFE mathematics and prime generator
-├── se_ipfe_engine.py          # Sensitivity-Embedded IPFE access control gates
-├── qdcs_engine.py            # Query-Derived Cryptographic Scope projections
-├── pod_engine.py             # Progressive Onion Decryption layer peeling
-├── alsh_engine.py            # Asymmetric Locality-Sensitive Hashing projections
-├── ipfs_mock.py              # Mock storage for encrypted IPFS embeddings
-├── rag_pipeline.py           # Core search (Algo 1) and gateway attention (Algo 2)
-├── run_experiments.py        # Baseline robustness stress tests (contamination/drop)
-├── run_comparisons.py        # Comparative latency and accuracy benchmarks
-├── demo_presentation.py      # Console presentation interactive demo interface
+├── shield_rag/               # Existing main framework components
+├── tests/                    # Existing main framework unit tests
 ├── requirements.txt          # Python library dependencies
-├── blockchain/
-│   ├── RetrievalContract.sol # Solidity smart contract managing audited queries
-│   └── contract_helper.py    # Local EVM simulator interface
-├── tests/
-│   └── test_crypto.py        # Correctness unit tests for FE encryption
-└── output/                   # Performance charts, diagrams, and raw metrics
-    ├── benchmark_results.json
-    ├── benchmark_results.png
-    ├── comparison_results.json
-    ├── comparison_results.png
-    ├── secure_rag_comparison.jpg
-    ├── shield_rag_components.jpg
-    └── trl_readiness_basic.jpg
+├── README.md                 # Project README (this file)
+└── prototype/                # Our self-contained V-PPRAG / SHIELD-RAG prototype
+    ├── config.py                 # Precision parameters and composite RSA bit sizes
+    ├── crypto_engine.py          # Baseline Ada-IPFE mathematics and prime generator
+    ├── se_ipfe_engine.py         # Sensitivity-Embedded IPFE access control gates
+    ├── qdcs_engine.py            # Query-Derived Cryptographic Scope projections
+    ├── pod_engine.py             # Progressive Onion Decryption layer peeling
+    ├── alsh_engine.py            # Asymmetric Locality-Sensitive Hashing projections
+    ├── ipfs_mock.py              # Mock storage for encrypted IPFS embeddings
+    ├── rag_pipeline.py           # Core search (Algo 1) and gateway attention (Algo 2)
+    ├── run_experiments.py        # Baseline robustness stress tests (contamination/drop)
+    ├── run_comparisons.py        # Comparative latency and accuracy benchmarks
+    ├── demo_presentation.py      # Console presentation interactive demo interface
+    ├── download_wiki.py          # Script to download Wikipedia evaluation corpus
+    ├── wiki_500.json             # Cached 385 Wikipedia articles dataset
+    ├── blockchain/               # Smart contract modules
+    │   ├── RetrievalContract.sol # Solidity smart contract managing audited queries
+    │   └── contract_helper.py    # Local EVM simulator interface
+    ├── tests/                    # Unit tests for local components
+    │   └── test_crypto.py        # Correctness unit tests for FE encryption
+    ├── docs/                     # Academic reports and Word docs
+    │   ├── day1_progress.docx
+    │   ├── day2_progress.md
+    │   ├── project_context.md
+    │   ├── secure_rag_comparison.md
+    │   ├── shield_rag_components.md
+    │   └── trl_readiness.md
+    └── output/                   # Performance charts, diagrams, and raw metrics
+        ├── benchmark_results.json
+        ├── benchmark_results.png
+        ├── comparison_results.json
+        ├── comparison_results.png
+        ├── secure_rag_comparison.jpg
+        ├── shield_rag_components.jpg
+        └── trl_readiness_basic.jpg
 ```
 
 ---
@@ -53,34 +66,38 @@ secure_hybrid_rag/
 ## 🛠️ Setup & Execution Guide
 
 ### 1. Installation
-Install the required libraries (NumPy, PyTorch, Transformers, Matplotlib, SymPy, python-docx):
+Install the required libraries (NumPy, PyTorch, Transformers, Matplotlib, SymPy, python-docx) at the root level:
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 2. Verify Cryptographic Correctness (Unit Tests)
-Validate the mathematical precision of the double key-blending Ada-IPFE implementation:
+Navigate into the `prototype` directory and run the correctness unit tests:
 ```bash
+cd prototype
 python -m unittest tests/test_crypto.py
 ```
 
 ### 3. Run Robustness & Query Drop Stress Tests
 Evaluate the baseline RAG system against query drop rate losses and database contamination:
 ```bash
+cd prototype
 python run_experiments.py
 ```
-*   Outputs: `output/benchmark_results.json` and `output/benchmark_results.png`.
+*   Outputs: `prototype/output/benchmark_results.json` and `prototype/output/benchmark_results.png`.
 
 ### 4. Run Cryptographic Comparison Benchmarks
-Compare all four implemented cryptographic backends (Ada-IPFE, SE-IPFE, QDCS, and POD) on the full corpus of 385 Wikipedia documents:
+Compare all four implemented cryptographic backends (Ada-IPFE, SE-IPFE, QDCS, and POD):
 ```bash
+cd prototype
 python run_comparisons.py
 ```
-*   Outputs: `output/comparison_results.json` and `output/comparison_results.png`.
+*   Outputs: `prototype/output/comparison_results.json` and `prototype/output/comparison_results.png`.
 
 ### 5. Start the Interactive Demo
 Run a step-by-step interactive CLI demonstrating query encoding, blockchain matching, and attention gateway decryption:
 ```bash
+cd prototype
 python demo_presentation.py
 ```
 
