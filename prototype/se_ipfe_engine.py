@@ -1,7 +1,8 @@
 import random
 import math
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any, Optional
 from crypto_engine import AdaIPFEEngine
+from revocation_proxy import RevocationProxy
 
 class SEIPFEEngine:
     @staticmethod
@@ -10,17 +11,34 @@ class SEIPFEEngine:
         return AdaIPFEEngine.Setup(lambda_bits, n)
 
     @staticmethod
-    def KeyGen(y: List[float], clearance: int, msk: List[int], mpk: Dict[str, Any], alpha: int, beta: int) -> Dict[str, Any]:
+    def KeyGen(
+        y: List[float],
+        clearance: int,
+        msk: List[int],
+        mpk: Dict[str, Any],
+        alpha: int,
+        beta: int,
+        user_id: str = "default_user",
+        revocation_proxy: Optional[RevocationProxy] = None
+    ) -> Dict[str, Any]:
         """Generates functional subkey associated with query vector y and a clearance level (1 to 5)."""
         # Generate standard Ada-IPFE subkey using KDC blenders
         from rag_pipeline import keygen_with_blenders
         sk_hq = keygen_with_blenders(y, msk, mpk, alpha, beta)
         
         # Package functional subkey with user clearance level
-        return {
+        sky_embed = {
             "sk_hq": sk_hq,
-            "clearance": clearance
+            "clearance": clearance,
+            "user_id": user_id
         }
+        
+        # If a revocation proxy is configured, enforce revocation check
+        if revocation_proxy is not None:
+            deny_val = RevocationProxy.create_force_deny_value(sky_embed)
+            sky_embed = revocation_proxy.enforce(user_id, sky_embed, deny_val)
+            
+        return sky_embed
 
     @staticmethod
     def Encrypt(x: List[float], sensitivity: int, mpk: Dict[str, Any], pk: List[int]) -> Dict[str, Any]:

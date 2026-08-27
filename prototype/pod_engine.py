@@ -36,6 +36,11 @@ class PODEngine:
         return ct_layers
 
     @staticmethod
+    def DecryptLayer(sk_layer: Tuple, ct_layer: Tuple, mpk_layer: Dict[str, Any]) -> float:
+        """Performs single-layer Ada-IPFE decryption on one onion layer."""
+        return AdaIPFEEngine.Decrypt(sk_layer, ct_layer, mpk_layer)
+
+    @staticmethod
     def Decrypt(sk_layers: List[Tuple], ct_layers: List[Tuple], traversal_depth: int, max_layers: int, mpk_layers: List[Dict[str, Any]]) -> float:
         """
         Decrypts progressive onion layers. 
@@ -45,7 +50,7 @@ class PODEngine:
         result = 0.0
         for l in range(min(traversal_depth, max_layers)):
             time.sleep(0.01) # Add 10ms processing latency per layer
-            result = AdaIPFEEngine.Decrypt(sk_layers[l], ct_layers[l], mpk_layers[l])
+            result = PODEngine.DecryptLayer(sk_layers[l], ct_layers[l], mpk_layers[l])
             
         if traversal_depth >= max_layers:
             # Reached full depth: unmasked payload

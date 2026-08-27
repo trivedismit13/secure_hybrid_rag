@@ -1,0 +1,30 @@
+========================================================================
+SHIELD-RAG: Multi-Tenant Subspace Non-Interference Scores (Novelty #3)
+========================================================================
+Query: 'What are the computational limits of Turing machines and automata?' (Tenant A)
+Target Evaluation: 20 Real Tenant B Documents
+Mathematical Guarantee: <P_A(q), P_B(d)> = q^T (U_A U_A^T U_B U_B^T) d = 0
+------------------------------------------------------------------------
+Doc 01 Cross-Tenant Inner Product: -1.214306433184e-17 (Exact 0.0)
+Doc 02 Cross-Tenant Inner Product: +1.387778780781e-17 (Exact 0.0)
+Doc 03 Cross-Tenant Inner Product: -3.816391647149e-17 (Exact 0.0)
+Doc 04 Cross-Tenant Inner Product: -2.949029909161e-17 (Exact 0.0)
+Doc 05 Cross-Tenant Inner Product: -2.775557561563e-17 (Exact 0.0)
+Doc 06 Cross-Tenant Inner Product: +3.469446951954e-18 (Exact 0.0)
+Doc 07 Cross-Tenant Inner Product: -3.469446951954e-17 (Exact 0.0)
+Doc 08 Cross-Tenant Inner Product: -1.387778780781e-17 (Exact 0.0)
+Doc 09 Cross-Tenant Inner Product: -5.811323644522e-17 (Exact 0.0)
+Doc 10 Cross-Tenant Inner Product: +1.734723475977e-17 (Exact 0.0)
+Doc 11 Cross-Tenant Inner Product: +2.775557561563e-17 (Exact 0.0)
+Doc 12 Cross-Tenant Inner Product: -2.081668171172e-17 (Exact 0.0)
+Doc 13 Cross-Tenant Inner Product: -3.469446951954e-18 (Exact 0.0)
+Doc 14 Cross-Tenant Inner Product: +3.642919299551e-17 (Exact 0.0)
+Doc 15 Cross-Tenant Inner Product: +2.775557561563e-17 (Exact 0.0)
+Doc 16 Cross-Tenant Inner Product: -3.209238430557e-17 (Exact 0.0)
+Doc 17 Cross-Tenant Inner Product: -1.387778780781e-17 (Exact 0.0)
+Doc 18 Cross-Tenant Inner Product: +2.428612866368e-17 (Exact 0.0)
+Doc 19 Cross-Tenant Inner Product: -1.908195823574e-17 (Exact 0.0)
+Doc 20 Cross-Tenant Inner Product: -4.336808689942e-17 (Exact 0.0)
+========================================================================
+Result: ZERO Cross-Tenant Leakage across all evaluated documents.
+========================================================================

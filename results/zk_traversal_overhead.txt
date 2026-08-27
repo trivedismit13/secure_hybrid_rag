@@ -1,0 +1,13 @@
+========================================================================
+SHIELD-RAG: Verifiable Bounded-Decoy Traversal Overhead Log (Novelty #2)
+========================================================================
+Evaluated Traversals: 20
+POD Onion Depth (D): 3
+Decoy Count (K-1): 4 (Total Batch: 5 candidates)
+------------------------------------------------------------------------
+Average Proof Generation Time: 0.0854 ms per traversal (Hashing only)
+Average Proof Storage Size: 108.0 bytes per traversal (D * 32B commitments)
+Average Auditor Verification Time: 9.5323 ms per challenged layer
+Verification Success Rate: 100.0%
+Path Confidentiality: Preserved (Server/Auditor cannot distinguish target from decoys)
+========================================================================

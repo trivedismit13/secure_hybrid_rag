@@ -1,0 +1,15 @@
+========================================================================
+SHIELD-RAG: Revocable Clearance Without Corpus Re-Encryption (Novelty #1)
+========================================================================
+Demo Target User: employee_sec_409
+Revocation Operation: proxy.revoke('employee_sec_409')
+Time-to-Revoke: 0.0504 ms (In-Memory Set Insertion O(1))
+Revocation Confirmed: True
+Time-to-Reinstate: 0.0081 ms (O(1) Set Deletion)
+Corpus Re-Encryption Invocations: 0 (Zero corpus-wide operations triggered)
+Stored Ciphertexts Touched: 0 (All database ciphertexts remain immutable)
+Key Re-Issuance for Other Users: 0 (No other user keys affected)
+========================================================================
+Audit Trail Log Entry:
+[('employee_sec_409', '2026-08-27T14:18:40.325553+00:00', 'Emergency access suspension'), ('employee_sec_409', '2026-08-27T14:18:40.325601+00:00', 'reinstated')]
+========================================================================

@@ -1,0 +1,422 @@
+{
+  "1": {
+    "canary_token": "zx1q2v33d628f6",
+    "sensitivity_level": 2,
+    "original_length": 937,
+    "modified_length": 958
+  },
+  "7": {
+    "canary_token": "zx7q3v2363d985",
+    "sensitivity_level": 3,
+    "original_length": 110,
+    "modified_length": 131
+  },
+  "9": {
+    "canary_token": "zx9q5va05f90c6",
+    "sensitivity_level": 5,
+    "original_length": 1016,
+    "modified_length": 1037
+  },
+  "12": {
+    "canary_token": "zx12q3va515a0c3",
+    "sensitivity_level": 3,
+    "original_length": 230,
+    "modified_length": 252
+  },
+  "13": {
+    "canary_token": "zx13q4v03855e30",
+    "sensitivity_level": 4,
+    "original_length": 268,
+    "modified_length": 290
+  },
+  "19": {
+    "canary_token": "zx19q5v62eaaba6",
+    "sensitivity_level": 5,
+    "original_length": 272,
+    "modified_length": 294
+  },
+  "23": {
+    "canary_token": "zx23q4v5faf85f6",
+    "sensitivity_level": 4,
+    "original_length": 189,
+    "modified_length": 211
+  },
+  "26": {
+    "canary_token": "zx26q2v222ba369",
+    "sensitivity_level": 2,
+    "original_length": 897,
+    "modified_length": 919
+  },
+  "27": {
+    "canary_token": "zx27q3v29306dc1",
+    "sensitivity_level": 3,
+    "original_length": 224,
+    "modified_length": 246
+  },
+  "41": {
+    "canary_token": "zx41q2v5fbb7b42",
+    "sensitivity_level": 2,
+    "original_length": 238,
+    "modified_length": 260
+  },
+  "44": {
+    "canary_token": "zx44q5v4a885173",
+    "sensitivity_level": 5,
+    "original_length": 906,
+    "modified_length": 928
+  },
+  "46": {
+    "canary_token": "zx46q2v0d9e6e02",
+    "sensitivity_level": 2,
+    "original_length": 186,
+    "modified_length": 208
+  },
+  "56": {
+    "canary_token": "zx56q2vd179d990",
+    "sensitivity_level": 2,
+    "original_length": 251,
+    "modified_length": 273
+  },
+  "58": {
+    "canary_token": "zx58q4v0fa3f299",
+    "sensitivity_level": 4,
+    "original_length": 259,
+    "modified_length": 281
+  },
+  "67": {
+    "canary_token": "zx67q3v35a2a4d8",
+    "sensitivity_level": 3,
+    "original_length": 440,
+    "modified_length": 462
+  },
+  "88": {
+    "canary_token": "zx88q4vbe67a759",
+    "sensitivity_level": 4,
+    "original_length": 207,
+    "modified_length": 229
+  },
+  "89": {
+    "canary_token": "zx89q5va784ef54",
+    "sensitivity_level": 5,
+    "original_length": 575,
+    "modified_length": 597
+  },
+  "90": {
+    "canary_token": "zx90q1v4e66956d",
+    "sensitivity_level": 1,
+    "original_length": 265,
+    "modified_length": 287
+  },
+  "94": {
+    "canary_token": "zx94q5v08f53e57",
+    "sensitivity_level": 5,
+    "original_length": 613,
+    "modified_length": 635
+  },
+  "100": {
+    "canary_token": "zx100q1vd1412da7",
+    "sensitivity_level": 1,
+    "original_length": 739,
+    "modified_length": 762
+  },
+  "106": {
+    "canary_token": "zx106q2vb2b345ad",
+    "sensitivity_level": 2,
+    "original_length": 424,
+    "modified_length": 447
+  },
+  "113": {
+    "canary_token": "zx113q4v0f5065a3",
+    "sensitivity_level": 4,
+    "original_length": 314,
+    "modified_length": 337
+  },
+  "119": {
+    "canary_token": "zx119q5vccd28b59",
+    "sensitivity_level": 5,
+    "original_length": 511,
+    "modified_length": 534
+  },
+  "124": {
+    "canary_token": "zx124q5vd557bf09",
+    "sensitivity_level": 5,
+    "original_length": 225,
+    "modified_length": 248
+  },
+  "126": {
+    "canary_token": "zx126q2v4ed5e42d",
+    "sensitivity_level": 2,
+    "original_length": 305,
+    "modified_length": 328
+  },
+  "131": {
+    "canary_token": "zx131q2vc6bf2ec3",
+    "sensitivity_level": 2,
+    "original_length": 535,
+    "modified_length": 558
+  },
+  "134": {
+    "canary_token": "zx134q5v896f36d6",
+    "sensitivity_level": 5,
+    "original_length": 347,
+    "modified_length": 370
+  },
+  "136": {
+    "canary_token": "zx136q2vc9d70aa5",
+    "sensitivity_level": 2,
+    "original_length": 265,
+    "modified_length": 288
+  },
+  "139": {
+    "canary_token": "zx139q5v5eed452f",
+    "sensitivity_level": 5,
+    "original_length": 641,
+    "modified_length": 664
+  },
+  "154": {
+    "canary_token": "zx154q5va30efff9",
+    "sensitivity_level": 5,
+    "original_length": 457,
+    "modified_length": 480
+  },
+  "160": {
+    "canary_token": "zx160q1va22f0035",
+    "sensitivity_level": 1,
+    "original_length": 428,
+    "modified_length": 451
+  },
+  "165": {
+    "canary_token": "zx165q1va719099d",
+    "sensitivity_level": 1,
+    "original_length": 652,
+    "modified_length": 675
+  },
+  "169": {
+    "canary_token": "zx169q5vf81df7b9",
+    "sensitivity_level": 5,
+    "original_length": 172,
+    "modified_length": 195
+  },
+  "175": {
+    "canary_token": "zx175q1v1a0eb9cb",
+    "sensitivity_level": 1,
+    "original_length": 753,
+    "modified_length": 776
+  },
+  "176": {
+    "canary_token": "zx176q2v49bc007a",
+    "sensitivity_level": 2,
+    "original_length": 430,
+    "modified_length": 453
+  },
+  "183": {
+    "canary_token": "zx183q4vd15fe1d8",
+    "sensitivity_level": 4,
+    "original_length": 661,
+    "modified_length": 684
+  },
+  "188": {
+    "canary_token": "zx188q4v62e1683c",
+    "sensitivity_level": 4,
+    "original_length": 549,
+    "modified_length": 572
+  },
+  "197": {
+    "canary_token": "zx197q3v1afc899e",
+    "sensitivity_level": 3,
+    "original_length": 279,
+    "modified_length": 302
+  },
+  "203": {
+    "canary_token": "zx203q4vb8cfa244",
+    "sensitivity_level": 4,
+    "original_length": 844,
+    "modified_length": 867
+  },
+  "207": {
+    "canary_token": "zx207q3v2216bcad",
+    "sensitivity_level": 3,
+    "original_length": 657,
+    "modified_length": 680
+  },
+  "218": {
+    "canary_token": "zx218q4vec80c453",
+    "sensitivity_level": 4,
+    "original_length": 197,
+    "modified_length": 220
+  },
+  "224": {
+    "canary_token": "zx224q5v8b68446d",
+    "sensitivity_level": 5,
+    "original_length": 913,
+    "modified_length": 936
+  },
+  "228": {
+    "canary_token": "zx228q4v0be11dc1",
+    "sensitivity_level": 4,
+    "original_length": 558,
+    "modified_length": 581
+  },
+  "230": {
+    "canary_token": "zx230q1vdc6d10d0",
+    "sensitivity_level": 1,
+    "original_length": 646,
+    "modified_length": 669
+  },
+  "231": {
+    "canary_token": "zx231q2vfe90d8fd",
+    "sensitivity_level": 2,
+    "original_length": 952,
+    "modified_length": 975
+  },
+  "235": {
+    "canary_token": "zx235q1vf9a109bf",
+    "sensitivity_level": 1,
+    "original_length": 252,
+    "modified_length": 275
+  },
+  "252": {
+    "canary_token": "zx252q3v75f52d1f",
+    "sensitivity_level": 3,
+    "original_length": 158,
+    "modified_length": 181
+  },
+  "256": {
+    "canary_token": "zx256q2v05fb6e44",
+    "sensitivity_level": 2,
+    "original_length": 642,
+    "modified_length": 665
+  },
+  "263": {
+    "canary_token": "zx263q4ve6ed4775",
+    "sensitivity_level": 4,
+    "original_length": 1004,
+    "modified_length": 1027
+  },
+  "269": {
+    "canary_token": "zx269q5vc9bf591d",
+    "sensitivity_level": 5,
+    "original_length": 358,
+    "modified_length": 381
+  },
+  "274": {
+    "canary_token": "zx274q5v66a975c7",
+    "sensitivity_level": 5,
+    "original_length": 377,
+    "modified_length": 400
+  },
+  "275": {
+    "canary_token": "zx275q1v2e06675a",
+    "sensitivity_level": 1,
+    "original_length": 462,
+    "modified_length": 485
+  },
+  "276": {
+    "canary_token": "zx276q2ved3bb4a6",
+    "sensitivity_level": 2,
+    "original_length": 894,
+    "modified_length": 917
+  },
+  "287": {
+    "canary_token": "zx287q3v82f42adf",
+    "sensitivity_level": 3,
+    "original_length": 905,
+    "modified_length": 928
+  },
+  "290": {
+    "canary_token": "zx290q1v6047c84b",
+    "sensitivity_level": 1,
+    "original_length": 981,
+    "modified_length": 1004
+  },
+  "297": {
+    "canary_token": "zx297q3v3352cd3e",
+    "sensitivity_level": 3,
+    "original_length": 626,
+    "modified_length": 649
+  },
+  "298": {
+    "canary_token": "zx298q4v3055d311",
+    "sensitivity_level": 4,
+    "original_length": 203,
+    "modified_length": 226
+  },
+  "304": {
+    "canary_token": "zx304q5vb5a3cc2d",
+    "sensitivity_level": 5,
+    "original_length": 589,
+    "modified_length": 612
+  },
+  "305": {
+    "canary_token": "zx305q1v5d70cfde",
+    "sensitivity_level": 1,
+    "original_length": 677,
+    "modified_length": 700
+  },
+  "313": {
+    "canary_token": "zx313q4v3dbed39f",
+    "sensitivity_level": 4,
+    "original_length": 192,
+    "modified_length": 215
+  },
+  "318": {
+    "canary_token": "zx318q4va21bb7d8",
+    "sensitivity_level": 4,
+    "original_length": 393,
+    "modified_length": 416
+  },
+  "324": {
+    "canary_token": "zx324q5v61a77dce",
+    "sensitivity_level": 5,
+    "original_length": 209,
+    "modified_length": 232
+  },
+  "333": {
+    "canary_token": "zx333q4v7fdc8a6b",
+    "sensitivity_level": 4,
+    "original_length": 367,
+    "modified_length": 390
+  },
+  "342": {
+    "canary_token": "zx342q3v084331ab",
+    "sensitivity_level": 3,
+    "original_length": 1065,
+    "modified_length": 1088
+  },
+  "343": {
+    "canary_token": "zx343q4vfecba537",
+    "sensitivity_level": 4,
+    "original_length": 604,
+    "modified_length": 627
+  },
+  "353": {
+    "canary_token": "zx353q4v97c82293",
+    "sensitivity_level": 4,
+    "original_length": 356,
+    "modified_length": 379
+  },
+  "355": {
+    "canary_token": "zx355q1v097fbb37",
+    "sensitivity_level": 1,
+    "original_length": 99,
+    "modified_length": 122
+  },
+  "358": {
+    "canary_token": "zx358q4v89071fab",
+    "sensitivity_level": 4,
+    "original_length": 186,
+    "modified_length": 209
+  },
+  "368": {
+    "canary_token": "zx368q4v59d1e520",
+    "sensitivity_level": 4,
+    "original_length": 276,
+    "modified_length": 299
+  },
+  "375": {
+    "canary_token": "zx375q1v55a01c44",
+    "sensitivity_level": 1,
+    "original_length": 749,
+    "modified_length": 772
+  }
+}

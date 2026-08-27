@@ -1,5 +1,6 @@
 import random
-from typing import List, Tuple, Dict, Any
+import numpy as np
+from typing import List, Tuple, Dict, Any, Union
 from crypto_engine import AdaIPFEEngine
 
 class QDCSEngine:
@@ -7,6 +8,23 @@ class QDCSEngine:
     def Setup(lambda_bits: int, n: int) -> Tuple[Dict[str, Any], List[int]]:
         """Setup matches standard Ada-IPFE parameters."""
         return AdaIPFEEngine.Setup(lambda_bits, n)
+
+    @staticmethod
+    def compute_projection_matrix(U: np.ndarray) -> np.ndarray:
+        """
+        Builds the orthogonal projection matrix P_S = U * U^T from
+        an orthonormal basis matrix U (dimension d x k).
+        """
+        return U @ U.T
+
+    @staticmethod
+    def project_vector(x: Union[List[float], np.ndarray], U: np.ndarray) -> np.ndarray:
+        """
+        Projects vector x into the subspace spanned by orthonormal basis U:
+        P_S(x) = U * (U^T * x)
+        """
+        x_vec = np.asarray(x, dtype=np.float64)
+        return U @ (U.T @ x_vec)
 
     @staticmethod
     def KeyGen(y: List[float], allowed_domains: List[str], msk: List[int], mpk: Dict[str, Any], alpha: int, beta: int) -> Dict[str, Any]:

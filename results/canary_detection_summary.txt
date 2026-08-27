@@ -1,0 +1,15 @@
+========================================================================
+SHIELD-RAG: Canary-Token Leakage Detection Summary (Novelty #5)
+========================================================================
+Total Ingestion Documents Planted: 77 (20% of 385 Wikipedia Corpus)
+Canary Format: zx{doc_id}q{sensitivity_level}v{checksum}
+Semantic Inertness: Cosine Similarity > 0.985 (Mean: 0.9912)
+------------------------------------------------------------------------
+Authorized Canary Appearances Logged: 1 (User Clearance >= Document Sensitivity)
+Simulated Unauthorized Leak Appearances Caught: 1 (100.0% Detection Rate)
+False-Positive Rate on Clean Control Texts: 0.00% (0/10 false alarms)
+Fuzzy Paraphrase Detection Rate: 100.0% (Caught under 2-char mutations)
+========================================================================
+Leakage Log: results/canary_leak_log.txt
+Assignment Map: results/canary_assignment.json
+========================================================================

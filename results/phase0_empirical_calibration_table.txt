@@ -1,0 +1,61 @@
+========================================================================
+SHIELD-RAG: Phase 0 SQLite Empirical Calibration Summary (Real Data)
+========================================================================
+Database Path: C:\Users\Lenovo\Downloads\vprag_prototype\results\shield_rag_experiments.db
+Timestamp: 2026-08-27T17:09:25Z
+------------------------------------------------------------------------
+
+[Experiment: novelty_1_revocation]
+  Method: proxy_revocation_100_users     | Metric: per_user_revocation_latency_ms | Mean: 0.00765 ± 0.01186 (Min: 0.00231, Max: 0.05444, N=50)
+  Method: proxy_revocation_10_users      | Metric: per_user_revocation_latency_ms | Mean: 0.00869 ± 0.00361 (Min: 0.00541, Max: 0.02434, N=50)
+  Method: proxy_revocation_500_users     | Metric: per_user_revocation_latency_ms | Mean: 0.00314 ± 0.00104 (Min: 0.00193, Max: 0.00681, N=50)
+  Method: proxy_revocation_50_users      | Metric: per_user_revocation_latency_ms | Mean: 0.00638 ± 0.00725 (Min: 0.00261, Max: 0.03420, N=50)
+
+[Experiment: novelty_2_zk_proof]
+  Method: cheating_prover_test           | Metric: rejection_rate                 | Mean: 1.00000 ± 0.00000 (Min: 1.00000, Max: 1.00000, N=4)
+  Method: zk_proof_depth_1               | Metric: proof_gen_latency_ms           | Mean: 0.06077 ± 0.01843 (Min: 0.04400, Max: 0.13980, N=50)
+  Method: zk_proof_depth_1               | Metric: verification_latency_ms        | Mean: 0.04437 ± 0.01596 (Min: 0.01440, Max: 0.10700, N=40)
+  Method: zk_proof_depth_2               | Metric: proof_gen_latency_ms           | Mean: 0.06239 ± 0.02461 (Min: 0.03740, Max: 0.14190, N=40)
+  Method: zk_proof_depth_2               | Metric: verification_latency_ms        | Mean: 0.04726 ± 0.01905 (Min: 0.00790, Max: 0.10500, N=40)
+  Method: zk_proof_depth_3               | Metric: proof_gen_latency_ms           | Mean: 0.06289 ± 0.01315 (Min: 0.03800, Max: 0.10510, N=40)
+  Method: zk_proof_depth_3               | Metric: verification_latency_ms        | Mean: 0.05171 ± 0.01841 (Min: 0.01070, Max: 0.12060, N=40)
+  Method: zk_proof_depth_4               | Metric: proof_gen_latency_ms           | Mean: 0.07000 ± 0.02760 (Min: 0.04160, Max: 0.19060, N=40)
+  Method: zk_proof_depth_4               | Metric: verification_latency_ms        | Mean: 0.05872 ± 0.02251 (Min: 0.01920, Max: 0.12920, N=40)
+
+[Experiment: novelty_3_multi_tenant]
+  Method: cross_leakage_t16              | Metric: cross_tenant_dot_product       | Mean: -0.00000 ± 0.00000 (Min: -0.00000, Max: -0.00000, N=3)
+  Method: cross_leakage_t2               | Metric: cross_tenant_dot_product       | Mean: 0.00000 ± 0.00000 (Min: 0.00000, Max: 0.00000, N=3)
+  Method: cross_leakage_t4               | Metric: cross_tenant_dot_product       | Mean: 0.00000 ± 0.00000 (Min: 0.00000, Max: 0.00000, N=3)
+  Method: cross_leakage_t8               | Metric: cross_tenant_dot_product       | Mean: -0.00000 ± 0.00000 (Min: -0.00000, Max: -0.00000, N=3)
+  Method: qr_subspace_t16                | Metric: qr_construction_latency_ms     | Mean: 57.68375 ± 18.57862 (Min: 38.35140, Max: 112.71050, N=30)
+  Method: qr_subspace_t2                 | Metric: qr_construction_latency_ms     | Mean: 54.10877 ± 10.89607 (Min: 39.41630, Max: 73.71470, N=30)
+  Method: qr_subspace_t4                 | Metric: qr_construction_latency_ms     | Mean: 56.65264 ± 13.91142 (Min: 38.97950, Max: 89.80320, N=30)
+  Method: qr_subspace_t8                 | Metric: qr_construction_latency_ms     | Mean: 56.89548 ± 13.31709 (Min: 40.77720, Max: 95.05710, N=30)
+
+[Experiment: novelty_4_indistinguishability]
+  Method: bit_length_parity              | Metric: distinguisher_advantage        | Mean: 0.01400 ± 0.00529 (Min: 0.01000, Max: 0.02000, N=3)
+  Method: lsb_mod_256                    | Metric: distinguisher_advantage        | Mean: 0.02733 ± 0.01747 (Min: 0.00800, Max: 0.04200, N=3)
+  Method: small_primes                   | Metric: distinguisher_advantage        | Mean: 0.00733 ± 0.00643 (Min: 0.00000, Max: 0.01200, N=3)
+
+[Experiment: novelty_5_canary]
+  Method: canary_scanner_pipeline        | Metric: scan_latency_ms                | Mean: 0.02161 ± 0.00661 (Min: 0.01500, Max: 0.03930, N=30)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_0               | Mean: 0.98677 ± 0.00000 (Min: 0.98677, Max: 0.98677, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_1               | Mean: 0.99313 ± 0.00000 (Min: 0.99313, Max: 0.99313, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_2               | Mean: 0.99076 ± 0.00000 (Min: 0.99076, Max: 0.99076, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_3               | Mean: 0.99294 ± 0.00000 (Min: 0.99294, Max: 0.99294, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_4               | Mean: 0.99519 ± 0.00000 (Min: 0.99519, Max: 0.99519, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_5               | Mean: 0.99672 ± 0.00000 (Min: 0.99672, Max: 0.99672, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_6               | Mean: 0.98412 ± 0.00000 (Min: 0.98412, Max: 0.98412, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_7               | Mean: 0.97263 ± 0.00000 (Min: 0.97263, Max: 0.97263, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_8               | Mean: 0.98833 ± 0.00000 (Min: 0.98833, Max: 0.98833, N=3)
+  Method: embedding_preservation         | Metric: cosine_sim_doc_9               | Mean: 0.99350 ± 0.00000 (Min: 0.99350, Max: 0.99350, N=3)
+
+[Experiment: novelty_6_adaptive_k]
+  Method: timing_side_channel_attack     | Metric: attacker_guess_rate            | Mean: 0.20000 ± 0.00000 (Min: 0.20000, Max: 0.20000, N=2)
+  Method: timing_side_channel_attack     | Metric: excess_advantage               | Mean: 0.00000 ± 0.00000 (Min: 0.00000, Max: 0.00000, N=2)
+
+[Experiment: baseline_n385]
+  Method: Ada-IPFE                       | Metric: keygen_latency_ms              | Mean: 5.30336 ± 0.47008 (Min: 4.78370, Max: 5.88080, N=5)
+  Method: Plaintext                      | Metric: search_latency_ms              | Mean: 2.22345 ± 5.02821 (Min: 0.38460, Max: 16.52520, N=10)
+
+========================================================================

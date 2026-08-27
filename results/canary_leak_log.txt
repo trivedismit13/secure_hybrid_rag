@@ -1,0 +1,8 @@
+[AUTHORIZED CANARY APPEARANCE] User: alice_admin (Clearance: 5) | Sensitivity: 3 | Canary Token: zx50q3v57d6d9c6
+[UNAUTHORIZED LEAK DETECTED] User: bob_intern (Clearance: 1) | Violated Sensitivity: 4 | Canary Token: zx88q4vbe67a759
+[AUTHORIZED CANARY APPEARANCE] User: alice_admin (Clearance: 5) | Sensitivity: 3 | Canary Token: zx50q3v57d6d9c6
+[UNAUTHORIZED LEAK DETECTED] User: bob_intern (Clearance: 1) | Violated Sensitivity: 4 | Canary Token: zx88q4vbe67a759
+[AUTHORIZED CANARY APPEARANCE] User: alice_admin (Clearance: 5) | Sensitivity: 3 | Canary Token: zx50q3v57d6d9c6
+[UNAUTHORIZED LEAK DETECTED] User: bob_intern (Clearance: 1) | Violated Sensitivity: 4 | Canary Token: zx88q4vbe67a759
+[AUTHORIZED CANARY APPEARANCE] User: alice_admin (Clearance: 5) | Sensitivity: 3 | Canary Token: zx50q3v57d6d9c6
+[UNAUTHORIZED LEAK DETECTED] User: bob_intern (Clearance: 1) | Violated Sensitivity: 4 | Canary Token: zx88q4vbe67a759

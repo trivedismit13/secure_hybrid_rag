@@ -1,0 +1,13 @@
+========================================================================
+SHIELD-RAG: Empirical Indistinguishability Test Results (Novelty #4)
+========================================================================
+Modulus N Bit-Length: 512 bits (N^2: 1023 bits)
+Evaluation Trials per Strategy: 500
+Target Advantage Bound: |Advantage| <= 0.05 (Ideal: 0.00)
+------------------------------------------------------------------------
+Strategy 1 (LSB Mod 256)             | Correct:  260/500 | Accuracy: 0.5200 | Advantage: 0.0200
+Strategy 2 (Bit-Length Parity)       | Correct:  248/500 | Accuracy: 0.4960 | Advantage: 0.0040
+Strategy 3 (Small Primes {3,5,7,11}) | Correct:  231/500 | Accuracy: 0.4620 | Advantage: 0.0380
+========================================================================
+Empirical Security Verdict: PASS (Statistically Indistinguishable)
+========================================================================

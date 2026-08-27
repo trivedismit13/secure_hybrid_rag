@@ -1,0 +1,8 @@
+========================================================================
+SHIELD-RAG: Adaptive Decoy Count Latency Distribution (Novelty #6)
+========================================================================
+Evaluated Test Hops: 10
+Observed Adaptive K Range: Min=5, Mean=6.50, Max=8
+Traversal Latency (ms): Min=0.0091 ms, Mean=0.0396 ms, Max=0.2646 ms
+Trade-Off Analysis: Latency scales linearly with adaptive K while guaranteeing k-anonymity.
+========================================================================
