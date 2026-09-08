@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-09-06 17:38:13",
+  "dynamic_subspaces": {
+    "init_time_ms": 202.79619994107634,
+    "dynamic_add_pool_time_ms": 0.011600088328123093,
+    "dynamic_add_mgs_time_ms": 155.1687999162823,
+    "dynamic_remove_time_ms": 0.009600073099136353,
+    "max_cross_tenant_dot_product": 4.0592529337857286e-16,
+    "verified_theorem_1": true
+  },
+  "revocation_and_reinstatement": {
+    "reinstatement_scaling": {
+      "N_10": {
+        "mean_ms": 0.0085900304839015,
+        "std_ms": 0.00317376950763667,
+        "median_ms": 0.007300055585801601,
+        "iqr_ms": 0.0011500087566673756,
+        "reencryptions": 0
+      },
+      "N_50": {
+        "mean_ms": 0.007947995327413082,
+        "std_ms": 0.003939864747467968,
+        "median_ms": 0.006849993951618671,
+        "iqr_ms": 0.0006750051397830248,
+        "reencryptions": 0
+      },
+      "N_100": {
+        "mean_ms": 0.00753199914470315,
+        "std_ms": 0.003431171359546557,
+        "median_ms": 0.006700051017105579,
+        "iqr_ms": 0.0006999180186539888,
+        "reencryptions": 0
+      },
+      "N_500": {
+        "mean_ms": 0.010177199961617589,
+        "std_ms": 0.03678320635380156,
+        "median_ms": 0.007899943739175797,
+        "iqr_ms": 0.001100008375942707,
+        "reencryptions": 0
+      },
+      "N_1000": {
+        "mean_ms": 0.007768298382870853,
+        "std_ms": 0.0033734193419954995,
+        "median_ms": 0.0070999376475811005,
+        "iqr_ms": 0.0008249771781265736,
+        "reencryptions": 0
+      }
+    },
+    "enterprise_batch_stress": {
+      "N_10000": {
+        "batch_revoke_total_ms": 15.611200011335313,
+        "batch_revoke_per_user_ms": 0.0015611200011335312,
+        "batch_reinstate_total_ms": 123.28810000326484,
+        "batch_reinstate_per_user_ms": 0.012328810000326484,
+        "query_lookup_latency_mean_ns": 1553.0006494373083,
+        "reencryptions": 0
+      },
+      "N_50000": {
+        "batch_revoke_total_ms": 33.69180008303374,
+        "batch_revoke_per_user_ms": 0.0006738360016606748,
+        "batch_reinstate_total_ms": 17.031800001859665,
+        "batch_reinstate_per_user_ms": 0.0003406360000371933,
+        "query_lookup_latency_mean_ns": 1236.500102095306,
+        "reencryptions": 0
+      }
+    }
+  },
+  "high_t_scaling_and_hit10": {
+    "T_2": {
+      "num_tenants": 2,
+      "subspace_dim_k": 192,
+      "qr_setup_ms": 103.0407000798732,
+      "cross_tenant_dot_product": 2.3592239273284576e-16,
+      "hit_at_10": 0.96
+    },
+    "T_4": {
+      "num_tenants": 4,
+      "subspace_dim_k": 96,
+      "qr_setup_ms": 94.22169998288155,
+      "cross_tenant_dot_product": 2.5673907444456745e-16,
+      "hit_at_10": 0.85
+    },
+    "T_8": {
+      "num_tenants": 8,
+      "subspace_dim_k": 48,
+      "qr_setup_ms": 132.69930006936193,
+      "cross_tenant_dot_product": 1.5265566588595902e-16,
+      "hit_at_10": 0.65
+    },
+    "T_16": {
+      "num_tenants": 16,
+      "subspace_dim_k": 24,
+      "qr_setup_ms": 95.06839991081506,
+      "cross_tenant_dot_product": 1.1796119636642288e-16,
+      "hit_at_10": 0.51
+    },
+    "T_32": {
+      "num_tenants": 32,
+      "subspace_dim_k": 12,
+      "qr_setup_ms": 98.03440002724528,
+      "cross_tenant_dot_product": 9.020562075079397e-17,
+      "hit_at_10": 0.37
+    },
+    "T_64": {
+      "num_tenants": 64,
+      "subspace_dim_k": 6,
+      "qr_setup_ms": 93.75999995972961,
+      "cross_tenant_dot_product": 5.0090140368830305e-17,
+      "hit_at_10": 0.33
+    }
+  },
+  "asymmetric_subspace_allocation": {
+    "total_dimension": 384,
+    "total_tenants": 8,
+    "uniform_baseline": {
+      "subspace_dim_k": 48,
+      "hit_at_10": 0.62
+    },
+    "asymmetric_deployment": {
+      "priority_tier": {
+        "subspace_dim_k": 120,
+        "hit_at_10": 0.94
+      },
+      "medium_tier": {
+        "subspace_dim_k": 60,
+        "hit_at_10": 0.71
+      },
+      "satellite_tier": {
+        "subspace_dim_k": 28,
+        "hit_at_10": 0.53
+      },
+      "cross_tenant_leakage": 2.5673907444456745e-16
+    }
+  }
+}

@@ -80,3 +80,9 @@ class TestAdaIPFE:
         expected = expected_int / (ipfe.scale**2)
         
         assert math.isclose(result, expected, rel_tol=1e-5, abs_tol=1e-5)
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(pytest.main(["-v", __file__]))
+

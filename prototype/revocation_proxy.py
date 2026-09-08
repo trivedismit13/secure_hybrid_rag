@@ -23,6 +23,7 @@ class RevocationProxy:
     def __init__(self):
         self._revoked_users: Set[str] = set()
         self._revocation_log: List[Tuple[str, str, str]] = []
+        self.reencryption_invocations: int = 0  # Invariant: must strictly remain 0
 
     def revoke(self, user_id: str, reason: str = "unspecified") -> None:
         """Revoke user clearance instantly by adding user_id to revocation list."""
@@ -34,8 +35,14 @@ class RevocationProxy:
         """Alias for revoke()."""
         self.revoke(user_id, reason)
 
+    def batch_revoke(self, user_ids: List[str], reason: str = "batch_revocation") -> None:
+        """Revoke a batch of users efficiently."""
+        self._revoked_users.update(user_ids)
+        timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        self._revocation_log.extend([(uid, timestamp, reason) for uid in user_ids])
+
     def reinstate(self, user_id: str) -> None:
-        """Reinstate a previously revoked user."""
+        """Reinstate a previously revoked user at O(1) cost with zero corpus re-encryption."""
         if user_id in self._revoked_users:
             self._revoked_users.remove(user_id)
         timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -44,6 +51,12 @@ class RevocationProxy:
     def reinstate_user(self, user_id: str) -> None:
         """Alias for reinstate()."""
         self.reinstate(user_id)
+
+    def batch_reinstate(self, user_ids: List[str]) -> None:
+        """Reinstate a batch of users efficiently at O(1) set operations."""
+        self._revoked_users.difference_update(user_ids)
+        timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        self._revocation_log.extend([(uid, timestamp, "reinstated") for uid in user_ids])
 
     def is_revoked(self, user_id: str) -> bool:
         """Check if user_id is currently revoked."""

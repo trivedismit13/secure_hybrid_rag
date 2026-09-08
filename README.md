@@ -101,6 +101,26 @@ cd prototype
 python demo_presentation.py
 ```
 
+### 6. Full-Fledged End-to-End Pipeline Demonstration (Defense & Evaluation)
+Run the unified 8-phase demonstration pipeline featuring all cryptographic engines (Ada-IPFE, SE-IPFE, QDCS, POD), simulated Solidity contract, IPFS mock, and in-model self-attention gateway decryption:
+
+```bash
+# Automated 8-phase walkthrough (KeyGen -> Ingestion -> Blockchain -> Matching -> Defense -> Attention -> Answer)
+python demo_full_pipeline.py --auto
+
+# Interactive Faculty Query Console (custom question, clearance level 1-5, domain scopes)
+python demo_full_pipeline.py --interactive
+
+# Cryptographic Attack Defense Simulator (clearance violation, cross-domain intrusion, onion shallow hop)
+python demo_full_pipeline.py --attacks
+
+# Performance & Comparative Benchmark Dashboard (vs Plaintext, FHE, OT)
+python demo_full_pipeline.py --benchmark
+
+# Main Interactive Menu (shows all options)
+python demo_full_pipeline.py
+```
+
 ---
 
 ## 📊 Performance Benchmarks & Comparisons

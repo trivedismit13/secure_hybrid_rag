@@ -50,13 +50,20 @@ class ExperimentDatabase:
                     value REAL NOT NULL,
                     trial_number INTEGER NOT NULL,
                     seed INTEGER NOT NULL,
+                    device TEXT NOT NULL DEFAULT 'cpu',
                     timestamp TEXT NOT NULL,
                     git_commit_hash TEXT NOT NULL
                 )
             """)
+            # Check if device column exists, if not alter table
+            cursor.execute("PRAGMA table_info(experiment_trials)")
+            columns = [info[1] for info in cursor.fetchall()]
+            if "device" not in columns:
+                cursor.execute("ALTER TABLE experiment_trials ADD COLUMN device TEXT NOT NULL DEFAULT 'cpu'")
+                
             cursor.execute("""
                 CREATE INDEX IF NOT EXISTS idx_exp_metric 
-                ON experiment_trials (experiment_id, method, metric_name, corpus_size)
+                ON experiment_trials (experiment_id, method, metric_name, corpus_size, device)
             """)
             conn.commit()
 
@@ -68,7 +75,8 @@ class ExperimentDatabase:
         metric_name: str,
         value: float,
         trial_number: int,
-        seed: int
+        seed: int,
+        device: str = "cpu"
     ):
         """Records a single raw trial observation."""
         timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -78,9 +86,9 @@ class ExperimentDatabase:
             cursor = conn.cursor()
             cursor.execute("""
                 INSERT INTO experiment_trials (
-                    experiment_id, corpus_size, method, metric_name, value, trial_number, seed, timestamp, git_commit_hash
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (experiment_id, corpus_size, method, metric_name, float(value), trial_number, seed, timestamp, git_hash))
+                    experiment_id, corpus_size, method, metric_name, value, trial_number, seed, device, timestamp, git_commit_hash
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (experiment_id, corpus_size, method, metric_name, float(value), trial_number, seed, device, timestamp, git_hash))
             conn.commit()
 
     def query_summary(
