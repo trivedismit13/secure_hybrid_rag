@@ -4,7 +4,7 @@
 [![Patent Application](https://img.shields.io/badge/Indian%20Patent-202441082531-gold.svg)]()
 [![Invention Disclosure](https://img.shields.io/badge/IDF--B-02--IPR--R003-orange.svg)]()
 [![Institution](https://img.shields.io/badge/VIT%20Vellore-SCOPE%20Capstone-red.svg)]()
-[![Tests](https://img.shields.io/badge/pytest-12%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/pytest-21%20passed%20(100%25)-brightgreen.svg)]()
 
 > **Official Capstone Project Report & Patent Reference**  
 > **Course:** BCSE497J Project-I, Bachelor of Technology in Computer Science & Engineering  
