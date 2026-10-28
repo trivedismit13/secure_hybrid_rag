@@ -93,6 +93,22 @@ class EphemeralAttentionGateway:
 
         return alpha_weights, pre_zero_snapshot, post_zero_snapshot
 
+    def zeroize_memory_buffer(self, scores: List[float]) -> Tuple[List[float], List[float]]:
+        """
+        Diagnostic memory zeroization test from Section 6.7.
+        Allocates contiguous C-float buffer S, writes raw scores, captures pre-buffer snapshot,
+        zeroizes in-place with ctypes.memset, and captures post-buffer snapshot.
+        """
+        k = len(scores)
+        c_float_array_type = ctypes.c_float * k
+        buf = c_float_array_type()
+        for i, s in enumerate(scores):
+            buf[i] = float(s)
+        pre_snap = [round(float(buf[i]), 4) for i in range(k)]
+        ctypes.memset(ctypes.addressof(buf), 0, ctypes.sizeof(buf))
+        post_snap = [round(float(buf[i]), 4) for i in range(k)]
+        return pre_snap, post_snap
+
     def assemble_generation_context(
         self,
         ranked_results: List[Tuple[str, float, EncryptedDocumentRecord]],

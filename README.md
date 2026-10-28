@@ -4,7 +4,7 @@
 [![Patent Application](https://img.shields.io/badge/Indian%20Patent-202441082531-gold.svg)]()
 [![Invention Disclosure](https://img.shields.io/badge/IDF--B-02--IPR--R003-orange.svg)]()
 [![Institution](https://img.shields.io/badge/VIT%20Vellore-SCOPE%20Capstone-red.svg)]()
-[![Tests](https://img.shields.io/badge/pytest-21%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/pytest-30%20passed%20(100%25)-brightgreen.svg)]()
 
 > **Official Capstone Project Report & Patent Reference**  
 > **Course:** BCSE497J Project-I, Bachelor of Technology in Computer Science & Engineering  
@@ -108,57 +108,59 @@ pip install -r requirements.txt
 To execute the interactive visual demonstration covering all 10 operational steps from Chapter 6 (Table 6.1) of the capstone report:
 
 ```bash
-# Automated run (headless / CI / quick verification)
-python -m demo.run_demo --auto
-
 # Interactive step-by-step walkthrough (press Enter to advance each stage)
-python -m demo.run_demo
+python demo.py
+
+# Automated run (headless / CI / quick verification)
+python demo.py --auto
 ```
 
 ### Demonstration Walkthrough Sequence (Table 6.1):
-1. **Step 1: System Initialization:** KDC initializes $d=384$ embedding metric space via QR decomposition. Verifies $\|Q^T Q - I_d\| \le 1.00 \times 10^{-14}$.
-2. **Step 2: Tenant Subspace Partitioning:** Disjoint column blocks $Q_1 \dots Q_4$ allocated to 4 enterprise tenants (Healthcare, Finance, Legal, Cloud); 144 dimensions reserved for dynamic admission.
+1. **Step 1: System Initialization:** KDC initializes $d=384$ embedding metric space via QR decomposition. Verifies $\|Q^T Q - I_d\| \le 1.00 \times 10^{-14}$ (144 reserve dims).
+2. **Step 2: Tenant Subspace Partitioning & Storage Persistence:** Disjoint column blocks $Q_1 \dots Q_4$ allocated to 4 enterprise tenants (Healthcare, Finance, Legal, Cloud); 144 dimensions reserved. Encrypted corpus persisted to `oracle_store.json` showing strictly ciphertexts (0 plaintext bytes).
 3. **Step 3: Document Ingestion & Lifting:** Vectors lifted via $\tilde{x} = Q_i x$, encrypted under ALS-IPFE and AES-256-GCM, and stored in OpenStack Swift containers.
-4. **Step 4: Authorized Similarity Retrieval:** Physician queries clinical context ($c_u=3 \ge c_{doc}=2$). Target document retrieved with score $0.8842$; cross-tenant similarity collapses to IEEE 754 precision ($\le 1.80 \times 10^{-16}$).
-5. **Step 5: Instant User Revocation:** Admin revokes compromised account in **0.00032 ms (320 ns)** in-memory. Zero stored ciphertexts mutated.
+4. **Step 4: Authorized Similarity Retrieval:** Physician queries clinical context ($c_u=3 \ge c_{doc}=2$). Target document retrieved with score **0.8842**; cross-tenant similarity collapses to IEEE 754 precision ($\le 1.80 \times 10^{-16}$).
+5. **Step 5: Instant User Revocation & Storage Invariance:** Admin revokes compromised account in **0.00032 ms (320 ns)** in-memory. Zero stored ciphertexts mutated (`sha256sum oracle_store.json` before and after matches bit-for-bit).
 6. **Step 6: Revoked Query Interception:** Revocation Proxy intercepts revoked query and floods subkey with $\Delta \cdot 2^{40} \cdot r$. Decryption yields 100% semantic drift and 0 matches.
-7. **Step 7: Instant User Reinstatement:** Admin reinstates account in 0.00032 ms. Immediate restoration of clean subkeys and exact similarity score.
-8. **Step 8: Tenant Epoch Advance:** Admin advances tenant epoch $\tau_1 \leftarrow 2$ in 0.0051 ms, bulk-invalidating thousands of stale session tokens without touching stored ciphertexts.
-9. **Step 9: Dynamic Reserve Admission:** Tenant 5 (Government & Defense) onboarded in **0.0116 ms** via reserve pointer allocation without re-indexing existing tenant data. Tier 2 fallback executes Incremental Modified Gram-Schmidt (MGS) expansion in 155.17 ms.
-10. **Step 10: Ephemeral Memory Zeroization:** Ephemeral Attention Gateway computes softmax attention weights, logs active logits in RAM, then invokes native `ctypes.memset` to wipe the buffer to strictly `0.0000`, limiting coordinate inversion advantage to $< 1.25 \times 10^{-8}$.
+7. **Step 7: Instant User Reinstatement:** Admin reinstates account in 0.00032 ms. Immediate restoration of clean subkeys and exact similarity score (0.8842).
+8. **Step 8: Tenant Epoch Advance:** Admin advances tenant epoch $\tau_1 \leftarrow 2$ in 0.0051 ms, bulk-invalidating stale session tokens without touching stored ciphertexts.
+9. **Step 9: Dynamic Reserve Admission:** Tenant 5 (Government & Defense) onboarded in **0.0116 ms** via reserve pointer allocation without re-indexing existing tenant data (`oracle_store.json` hash unchanged).
+10. **Step 10: Ephemeral Memory Zeroization:** Ephemeral Attention Gateway computes softmax attention weights, logs active logits in RAM (`[0.8842, 0.4120, -0.1502, 0.0512]`), then invokes native `ctypes.memset` to wipe the buffer to strictly `[0.0, 0.0, 0.0, 0.0]`.
 
 ---
 
-## 6. Running Automated Tests
+## 6. Running Four Separate Microservice Nodes
 
-Run the full automated test suite verifying TC-01 through TC-08:
+For live demonstrations and examiner evaluation showing the 4 isolated trust domains in separate terminal windows:
 
 ```bash
-python -m pytest -v tests/test_shield_rag.py
+# Windows Batch Launcher (spawns 4 dedicated colorized cmd windows)
+launch_nodes.bat
+
+# PowerShell Launcher
+.\launch_nodes.ps1
+
+# Cross-Platform Python Launcher
+python launch_nodes.py
 ```
 
-### Verification Matrix (Table 5.1):
-| Test Case ID | Tested Invariant / Routine | Acceptance Criteria | Measured Status |
-|---|---|---|---|
-| **TC-01** | QR Orthogonality & Machine Precision Floor | Leakage $\le 1.80 \times 10^{-16}$ | **PASSED** ($7.03 \times 10^{-17}$) |
-| **TC-02** | Intra-Tenant Dot Product Preservation | $\langle \tilde{x}, \tilde{y} \rangle == \langle x, y \rangle$ | **PASSED** ($\Delta \le 1.00 \times 10^{-14}$) |
-| **TC-03** | Clearance Hierarchy Gating | Authorized pass vs noise flooding | **PASSED** (Diff $\ge 2^{40}$) |
-| **TC-04** | Single-User Revocation Latency | Registry update $< 0.001$ ms | **PASSED** ($0.00032$ ms) |
-| **TC-05** | Instant User Reinstatement | Restores exact subkey pass-through | **PASSED** ($0.00032$ ms) |
-| **TC-06** | Tenant Epoch Advance | Bulk stale token invalidation | **PASSED** ($0.0051$ ms) |
-| **TC-07** | Attention Scoring & ctypes.memset Zeroization | Sum=1.000, buffer strictly zeroed | **PASSED** (100% Zeroized) |
-| **TC-08** | Enterprise Batch Revocation Scaling | $\ge 500,000$ users/s, $\le 2\ \mu$s/user | **PASSED** ($1.56\ \mu$s/user) |
-
----
-
-## 7. REST API Microservice Specification
-
-Start the FastAPI microservice:
-```bash
-python -m uvicorn api.api_gateway:app --host 0.0.0.0 --port 8000 --reload
-```
+### Microservice Architecture & Port Allocations:
+- **Port 8001:** Key Distribution Center (`services.kdc_node`) — `[KDC] ready`
+- **Port 8002:** Perimeter Revocation Proxy (`services.proxy_node`) — `[REVOCATION PROXY] ready`
+- **Port 8003:** Cloud Storage Oracle (`services.storage_node`) — `[STORAGE ORACLE] ready`
+- **Port 8000:** Query Gateway & Nova Inference (`services.gateway_node`) — `[QUERY GATEWAY] ready`
 
 Interactive OpenAPI Swagger UI is available at `http://localhost:8000/docs`.
+
+---
+
+## 7. Running Automated Tests
+
+Run the full automated test suite verifying all 30 formal test cases:
+
+```bash
+python -m pytest -v tests/
+```
 
 ### Primary Endpoints:
 - `GET /health` — Service readiness, active tenant bases, and reserve pool capacity.

@@ -16,6 +16,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Set, Tuple
 import hashlib
 import json
+import os
 import secrets
 import time
 import numpy as np
@@ -365,11 +366,13 @@ class CloudStorageOracle:
         dim: int = GLOBAL_DIM,
         ipfe: Optional[IPFECryptosystem] = None,
         seed: Optional[int] = 42,
+        store_filepath: Optional[str] = None,
     ) -> None:
         self.dim = dim
         self.ipfe = ipfe or IPFECryptosystem(dim=dim, seed=seed)
         self.alsh_index = ALSHIndex(dim=dim, seed=seed)
         self.openstack = OpenStackStorageDriver()
+        self.store_filepath = store_filepath
 
         # Storage repository: doc_id -> EncryptedDocumentRecord
         self.documents: Dict[str, EncryptedDocumentRecord] = {}
@@ -379,6 +382,99 @@ class CloudStorageOracle:
 
         # Per-tenant AES payload encryption keys derived via HKDF
         self._tenant_aes_keys: Dict[str, bytes] = {}
+
+    def export_store_to_json(self, filepath: Optional[str] = None) -> str:
+        """
+        Exports all stored encrypted records to a JSON file (e.g. oracle_store.json).
+        Contains strictly ciphertext blobs, nonces, tags, and IPFE components.
+        Zero plaintext text or readable raw vectors are exposed.
+
+        Returns:
+            SHA-256 hex digest of the exported JSON file content.
+        """
+        target_path = filepath or self.store_filepath or "oracle_store.json"
+        store_dict: Dict[str, Any] = {}
+        for doc_id, record in self.documents.items():
+            store_dict[doc_id] = {
+                "doc_id": record.doc_id,
+                "tenant_id": record.tenant_id,
+                "clearance": record.clearance,
+                "ipfe_ciphertext": {
+                    "C_0": hex(record.ipfe_ciphertext.C_0),
+                    "C_k": [hex(c) for c in record.ipfe_ciphertext.C_k],
+                    "scale": record.ipfe_ciphertext.scale,
+                    "dim": record.ipfe_ciphertext.dim,
+                },
+                "aes_256_gcm": {
+                    "iv": record.aes_iv.hex(),
+                    "ciphertext": record.aes_ciphertext.hex(),
+                    "tag": record.aes_tag.hex(),
+                },
+                "alsh_hash": record.alsh_hash,
+                "created_at": record.created_at,
+            }
+
+        content = json.dumps(store_dict, indent=2, sort_keys=True)
+        with open(target_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+        return hashlib.sha256(content.encode("utf-8")).hexdigest()
+
+    def get_store_hash(self, filepath: Optional[str] = None) -> str:
+        """Computes and returns the SHA-256 hash of the stored oracle JSON file."""
+        target_path = filepath or self.store_filepath or "oracle_store.json"
+        if os.path.exists(target_path):
+            with open(target_path, "rb") as f:
+                return hashlib.sha256(f.read()).hexdigest()
+        return self.export_store_to_json(target_path)
+
+    def load_store_from_json(self, filepath: Optional[str] = None) -> int:
+        """
+        Loads persisted encrypted document records from a JSON file into oracle memory.
+        Does not touch or reveal plaintext (records only contain AES-GCM and IPFE ciphertexts).
+        """
+        target_path = filepath or self.store_filepath or "oracle_store.json"
+        if not os.path.exists(target_path):
+            return 0
+        try:
+            with open(target_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            return 0
+
+        count = 0
+        for doc_id, entry in data.items():
+            try:
+                ipfe_data = entry["ipfe_ciphertext"]
+                c_0 = int(ipfe_data["C_0"], 16) if isinstance(ipfe_data["C_0"], str) else int(ipfe_data["C_0"])
+                c_k = [int(c, 16) if isinstance(c, str) else int(c) for c in ipfe_data["C_k"]]
+                ct = IPFECiphertext(
+                    C_0=c_0,
+                    C_k=c_k,
+                    scale=ipfe_data.get("scale", IPFE_SCALE_FACTOR),
+                    dim=ipfe_data.get("dim", len(c_k)),
+                )
+                aes_data = entry["aes_256_gcm"]
+                record = EncryptedDocumentRecord(
+                    doc_id=doc_id,
+                    tenant_id=entry["tenant_id"],
+                    clearance=entry["clearance"],
+                    ipfe_ciphertext=ct,
+                    aes_iv=bytes.fromhex(aes_data["iv"]),
+                    aes_ciphertext=bytes.fromhex(aes_data["ciphertext"]),
+                    aes_tag=bytes.fromhex(aes_data["tag"]),
+                    alsh_hash=entry.get("alsh_hash", []),
+                    created_at=entry.get("created_at", 0.0),
+                )
+                self.documents[doc_id] = record
+                if record.tenant_id not in self.tenant_documents:
+                    self.tenant_documents[record.tenant_id] = []
+                if doc_id not in self.tenant_documents[record.tenant_id]:
+                    self.tenant_documents[record.tenant_id].append(doc_id)
+                count += 1
+            except Exception:
+                continue
+        return count
 
     def get_or_create_tenant_aes_key(self, tenant_id: str) -> bytes:
         """Derives a consistent 256-bit AES key for a tenant via HKDF/SHA-256."""
@@ -457,6 +553,8 @@ class CloudStorageOracle:
         self.tenant_documents[tenant_id].append(doc_id)
 
         self.openstack.put_object(container, doc_id, record)
+        if self.store_filepath:
+            self.export_store_to_json(self.store_filepath)
         return record
 
     def search(

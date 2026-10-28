@@ -87,31 +87,62 @@ class IPFECryptosystem:
         Setup algorithm: Generates Paillier modulus and master secret keys.
         """
         half_bits = key_bits // 2
-        p = getPrime(half_bits)
-        q = getPrime(half_bits)
-        while p == q:
+        import random
+        if hasattr(self, "seed") and self.seed is not None:
+            prng = random.Random(self.seed)
+            randfunc = prng.randbytes
+            p = getPrime(half_bits, randfunc=randfunc)
+            q = getPrime(half_bits, randfunc=randfunc)
+            while p == q:
+                q = getPrime(half_bits, randfunc=randfunc)
+            N = p * q
+            N2 = N * N
+            u = prng.randrange(2, N - 1)
+        else:
+            p = getPrime(half_bits)
             q = getPrime(half_bits)
-
-        N = p * q
-        N2 = N * N
+            while p == q:
+                q = getPrime(half_bits)
+            N = p * q
+            N2 = N * N
+            u = secrets.randbelow(N - 2) + 2
 
         # Paillier standard generator: g = 1 + N mod N^2
-        # (or g = (1 + N) * (u^N mod N^2))
-        u = secrets.randbelow(N - 2) + 2
         g = ((1 + N) * _powmod(u, N, N2)) % N2
 
         # Master secret vector S = (s_1, ..., s_d) sampled uniformly from [1, N // 4]
-        # In Paillier-based IPFE, S can also be sampled from discrete Gaussian or bounded range
-        import random
-        prng = random.Random(self.seed) if hasattr(self, "seed") and self.seed is not None else secrets.SystemRandom()
+        prng_msk = random.Random(self.seed) if hasattr(self, "seed") and self.seed is not None else secrets.SystemRandom()
         MSK: List[int] = [
-            prng.randrange(1, max(2, N // 4)) for _ in range(dim)
+            prng_msk.randrange(1, max(2, N // 4)) for _ in range(dim)
         ]
 
         # Public parameters: h_k = g^{s_k} mod N^2
         PP_h: List[int] = [_powmod(g, s_k, N2) for s_k in MSK]
 
         return N, N2, g, MSK, PP_h
+
+    @classmethod
+    def from_public_params(
+        cls,
+        N: int,
+        g: int,
+        PP_h: List[int],
+        dim: Optional[int] = None,
+        scale: int = IPFE_SCALE_FACTOR,
+    ) -> "IPFECryptosystem":
+        """Instantiates an IPFECryptosystem with public parameters only (for Cloud Storage Oracle)."""
+        instance = cls.__new__(cls)
+        instance.N = N
+        instance.N2 = N * N
+        instance.g = g
+        instance.PP_h = list(PP_h)
+        instance.dim = dim or len(PP_h)
+        instance.scale = scale
+        instance.MSK = []  # Oracle does not hold MSK
+        instance.key_bits = N.bit_length()
+        instance.seed = None
+        instance.rng = np.random.default_rng(42)
+        return instance
 
     def expand_dimension(self, new_dim: int) -> None:
         """
