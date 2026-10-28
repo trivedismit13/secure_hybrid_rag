@@ -175,6 +175,7 @@ def subspace_info() -> Dict[str, Any]:
 
 @app.post("/subspace/lift_query", response_model=LiftQueryResponse)
 def lift_query(req: LiftQueryRequest) -> LiftQueryResponse:
+    print(f"\n[KDC :8001] [KEYSTONE] -> Lifting query for {req.tenant_id} into orthogonal subspace (d=384)...", flush=True)
     t0 = time.perf_counter()
     engine, ipfe = get_kdc_state()
     if req.tenant_id not in engine.tenant_bases:
@@ -192,6 +193,7 @@ def lift_query(req: LiftQueryRequest) -> LiftQueryResponse:
     lifted_y = engine.lift_query(req.tenant_id, base_y)
     raw_subkey = ipfe.derive_subkey(lifted_y)
     t1 = time.perf_counter()
+    print(f"[KDC :8001] [KEYSTONE] [OK] Subkey derived: {str(raw_subkey)[:16]}... in {(t1-t0)*1000.0:.2f} ms", flush=True)
 
     return LiftQueryResponse(
         tenant_id=req.tenant_id,
@@ -204,6 +206,7 @@ def lift_query(req: LiftQueryRequest) -> LiftQueryResponse:
 
 @app.post("/subspace/lift_document", response_model=LiftDocumentResponse)
 def lift_document(req: LiftDocumentRequest) -> LiftDocumentResponse:
+    print(f"\n[KDC :8001] [KEYSTONE] -> Lifting document for {req.tenant_id} into orthogonal subspace...", flush=True)
     t0 = time.perf_counter()
     engine, _ = get_kdc_state()
     if req.tenant_id not in engine.tenant_bases:

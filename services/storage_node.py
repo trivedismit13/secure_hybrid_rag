@@ -150,6 +150,7 @@ def health() -> Dict[str, Any]:
 
 @app.post("/storage/ingest", response_model=StorageIngestResponse)
 def ingest_record(req: StorageIngestRequest) -> StorageIngestResponse:
+    print(f"\n[STORAGE ORACLE :8003] [SWIFT] -> Ingesting & encrypting doc '{req.doc_id}' for {req.tenant_id} (Zero Plaintext on Disk)...", flush=True)
     t0 = time.perf_counter()
     oracle = get_oracle()
     lifted_np = np.array(req.x_lifted, dtype=np.float64)
@@ -163,6 +164,7 @@ def ingest_record(req: StorageIngestRequest) -> StorageIngestResponse:
     )
     store_hash = oracle.export_store_to_json(STORE_FILEPATH)
     t1 = time.perf_counter()
+    print(f"[STORAGE ORACLE :8003] [SWIFT] [OK] Stored in oracle_store.json | SHA-256: {store_hash[:16]}... in {(t1-t0)*1000.0:.2f} ms", flush=True)
 
     return StorageIngestResponse(
         doc_id=record.doc_id,
@@ -176,6 +178,7 @@ def ingest_record(req: StorageIngestRequest) -> StorageIngestResponse:
 
 @app.post("/storage/search", response_model=StorageSearchResponse)
 def search_candidates(req: StorageSearchRequest) -> StorageSearchResponse:
+    print(f"\n[STORAGE ORACLE :8003] [SWIFT] -> Evaluating encrypted inner products over Paillier ciphertexts (Top-K={req.top_k})...", flush=True)
     t0 = time.perf_counter()
     oracle = get_oracle()
     lifted_np = np.array(req.y_lifted, dtype=np.float64)
@@ -186,6 +189,8 @@ def search_candidates(req: StorageSearchRequest) -> StorageSearchResponse:
         top_k=req.top_k,
     )
     t1 = time.perf_counter()
+    top_score = results[0][1] if results else 0.0
+    print(f"[STORAGE ORACLE :8003] [SWIFT] [OK] Search completed | Scored {len(oracle.documents)} encrypted records | Top Score: {top_score:.4f} in {(t1-t0)*1000.0:.2f} ms", flush=True)
 
     candidates: List[RankedCandidate] = []
     for rank_idx, (doc_id, sim, rec) in enumerate(results, 1):

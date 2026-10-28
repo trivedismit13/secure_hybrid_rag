@@ -200,6 +200,11 @@ def proxy_search_forward(req: SearchForwardRequest) -> SearchForwardResponse:
     t1 = time.perf_counter_ns()
     gate_latency_ns = t1 - t0
 
+    if is_flooded:
+        print(f"\n[REVOCATION PROXY :8002] [BLOCKED] -> User '{req.user_id}' status: {status_msg}! Injected noise flooding (sigma={proxy.sigma}) in {gate_latency_ns} ns", flush=True)
+    else:
+        print(f"\n[REVOCATION PROXY :8002] [AUTHORIZED] -> User '{req.user_id}' ({req.tenant_id}) | Subkey gated in {gate_latency_ns} ns | Forwarding to Storage Oracle :8003", flush=True)
+
     # Forward to Cloud Storage Oracle
     candidates: List[Dict[str, Any]] = []
     try:
@@ -235,6 +240,7 @@ def revoke_user(req: RevokeUserRequest) -> Dict[str, Any]:
     proxy.revoke_user(req.user_id)
     t1 = time.perf_counter_ns()
     elapsed_ns = t1 - t0
+    print(f"\n[REVOCATION PROXY :8002] [ADMIN REVOCATION] -> User '{req.user_id}' revoked in {elapsed_ns} ns (~{elapsed_ns/1000.0:.2f} us)! Re-encryptions: 0", flush=True)
 
     return {
         "user_id": req.user_id,
@@ -253,6 +259,7 @@ def reinstate_user(req: ReinstateUserRequest) -> Dict[str, Any]:
     proxy.reinstate_user(req.user_id)
     t1 = time.perf_counter_ns()
     elapsed_ns = t1 - t0
+    print(f"\n[REVOCATION PROXY :8002] [ADMIN REINSTATE] -> User '{req.user_id}' reinstated in {elapsed_ns} ns! Status restored.", flush=True)
 
     return {
         "user_id": req.user_id,

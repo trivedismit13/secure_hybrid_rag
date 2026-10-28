@@ -218,6 +218,7 @@ def health_check() -> Dict[str, Any]:
 @app.post("/documents/ingest", response_model=IngestResponse)
 def ingest_document(req: IngestRequest) -> IngestResponse:
     """Ingests, lifts, and encrypts a document across KDC and Storage Oracle."""
+    print(f"\n[QUERY GATEWAY :8000] -> /documents/ingest: Ingesting into {req.tenant_id} | \"{req.text[:45]}...\"", flush=True)
     if check_distributed_nodes():
         try:
             with httpx.Client(timeout=5.0) as client:
@@ -281,6 +282,7 @@ def ingest_document(req: IngestRequest) -> IngestResponse:
 @app.post("/query/retrieve", response_model=RetrieveResponse)
 def retrieve_query(req: RetrieveRequest) -> RetrieveResponse:
     """Performs end-to-end encrypted similarity retrieval with subkey gating and zeroization."""
+    print(f"\n[QUERY GATEWAY :8000] -> /query/retrieve: User '{req.user_id}' ({req.tenant_id}) | \"{req.query_text[:45]}...\"", flush=True)
     if check_distributed_nodes():
         try:
             t0 = time.perf_counter()
@@ -428,6 +430,7 @@ def retrieve_query(req: RetrieveRequest) -> RetrieveResponse:
 @app.post("/admin/revoke_user")
 def revoke_user(req: RevokeUserRequest) -> Dict[str, Any]:
     """Revokes a user in O(1) in-memory latency (~320 ns)."""
+    print(f"\n[QUERY GATEWAY :8000] -> /admin/revoke_user: Revoking '{req.user_id}'...", flush=True)
     t0_http = time.perf_counter()
     if check_distributed_nodes():
         try:
@@ -436,6 +439,7 @@ def revoke_user(req: RevokeUserRequest) -> Dict[str, Any]:
                 data = resp.json()
                 t1_http = time.perf_counter()
                 data["http_round_trip_ms"] = (t1_http - t0_http) * 1000.0
+                print(f"[QUERY GATEWAY :8000] [OK] User '{req.user_id}' revoked via Revocation Proxy", flush=True)
                 return data
         except Exception:
             pass
@@ -457,6 +461,7 @@ def revoke_user(req: RevokeUserRequest) -> Dict[str, Any]:
 @app.post("/admin/reinstate_user")
 def reinstate_user(req: ReinstateUserRequest) -> Dict[str, Any]:
     """Reinstates a revoked user in O(1) in-memory latency."""
+    print(f"\n[QUERY GATEWAY :8000] -> /admin/reinstate_user: Reinstating '{req.user_id}'...", flush=True)
     t0_http = time.perf_counter()
     if check_distributed_nodes():
         try:
@@ -465,6 +470,7 @@ def reinstate_user(req: ReinstateUserRequest) -> Dict[str, Any]:
                 data = resp.json()
                 t1_http = time.perf_counter()
                 data["http_round_trip_ms"] = (t1_http - t0_http) * 1000.0
+                print(f"[QUERY GATEWAY :8000] [OK] User '{req.user_id}' reinstated via Revocation Proxy", flush=True)
                 return data
         except Exception:
             pass
